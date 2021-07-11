@@ -23,4 +23,4 @@ def get_contact_info():
 
 English | French
 ------------ | -------------
-[URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20english%20version.pdf) | [URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20french%20version.pdf)
+[URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20english%20version.pdf) | [URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20french.pdf)
