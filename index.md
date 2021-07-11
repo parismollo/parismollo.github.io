@@ -11,7 +11,7 @@ interested into solving **urban challenges, with science and technology.**
 I've written about [my Fire detection algorithm project](https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256). I'll be publishing a new article soon!
 
 ## Projects
-Check my [Github](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics!
+Check my [Github page](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics!
 
 ## Contact 
 ```python
