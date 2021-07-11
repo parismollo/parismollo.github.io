@@ -1,2 +1,0 @@
-# paris
-Projects and Articles
