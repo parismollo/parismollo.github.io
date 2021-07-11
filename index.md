@@ -13,12 +13,14 @@ I've written about [my Fire detection algorithm project](https://parismollochris
 ## Projects
 Check my [Github](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics!
 
-## CV
-![CV1](https://raw.githubusercontent.com/parismollo/parismollo.github.io/main/cv%2021%20english%20version-1.jpg)
-![CV2](https://raw.githubusercontent.com/parismollo/parismollo.github.io/main/cv%2021%20english%20version-2.jpg)
-
 ## Contact 
 ```python
 def get_contact_info():
   return {"twitter": "@parismollo", "email": "parismolloch@gmail.com"}
 ```
+
+## CV
+
+English | French
+------------ | -------------
+[URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20english%20version.pdf) | [URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20french%20version.pdf)
