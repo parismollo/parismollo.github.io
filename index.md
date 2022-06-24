@@ -1,5 +1,5 @@
-# About
-My name is Paris Mollo. I am a student from Brazil based in France. I study Computer Science at the Université de Paris and **I’m interested in solving urban challenges, with science and technology.**
+# Hi, I'm Paris
+I am a student from Brazil based in France. I study Computer Science at the Université de Paris and **I’m interested in solving urban challenges, with science and technology.**
 
 ## Appearances
 * [Tedx Talk](https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr)
