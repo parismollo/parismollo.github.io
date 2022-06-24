@@ -1,6 +1,4 @@
 # Hi, I'm Paris Mollo
-
-## About
 I am a student from Brazil based in France. I study Computer Science at the Université de Paris and **I’m interested in solving urban challenges, with science and technology.**
 
 ## Appearances
