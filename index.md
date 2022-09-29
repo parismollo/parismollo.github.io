@@ -10,7 +10,8 @@ I am a student from Brazil based in France. I study Computer Science at the Univ
 I've written about [my Fire detection algorithm project](https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256). I'll be publishing a new article soon!
 
 ## Projects
-Check my [Github page](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics!
+Check my [Github page](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics! You can also check my current endeavor at [Mia Labs](https://github.com/Mia-Labs). 
+
 
 ## Contact 
 ```python
@@ -20,6 +21,6 @@ def get_contact_info():
 
 ## CV
 
-English | French
------------- | -------------
-[URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20english%20version.pdf) | [URL](https://github.com/parismollo/parismollo.github.io/blob/main/cv%2021%20french.pdf)
+English |
+------------ |
+[CV pm](https://github.com/parismollo/parismollo.github.io/blob/main/resume_paris_mollo_2022.pdf) |
