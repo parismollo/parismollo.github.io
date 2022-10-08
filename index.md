@@ -12,6 +12,8 @@ I've written about [my Fire detection algorithm project](https://parismollochris
 ## Projects
 Check my [Github page](https://github.com/parismollo), there're a few open source projects on **Machine Learning** and others cool topics! You can also check my current endeavor at [Mia Labs](https://github.com/Mia-Labs). 
 
+## Certifications
+Check few of the certifications or workshops I've completed/participated: [certifications](https://github.com/parismollo/parismollo.github.io/tree/main/certifications)
 
 ## Contact 
 ```python
