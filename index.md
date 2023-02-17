@@ -25,4 +25,4 @@ def get_contact_info():
 
 English |
 ------------ |
-[CV pm](https://github.com/parismollo/parismollo.github.io/blob/main/resume_paris_mollo_2022.pdf) |
+[CV pm](https://github.com/parismollo/parismollo.github.io/blob/main/cv_pm_2023.pdf) |
