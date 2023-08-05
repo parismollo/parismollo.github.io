@@ -24,12 +24,18 @@
             box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
             border-radius: 15px;
         }
-        h1, h2 {
+        h1, h2, h3 {
             color: #000;
         }
         h1 {
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
+        }
+        h3 {
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #808080;
         }
         p {
             font-size: 16px;
@@ -51,40 +57,20 @@
             margin-right: 15px;
             transition: color 0.2s;
         }
-        .nav {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #90EE90; /* light green */
+        .section {
+            animation: fadeIn 1s ease-in;
         }
-        .nav li {
-            float: left;
-        }
-        .nav li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        .nav li a:hover {
-            background-color: #76c893; /* darker green */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
     </style>
 </head>
 <body>
-    <ul class="nav">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#appearances">Appearances</a></li>
-        <li><a href="#articles">Articles</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-
     <div class="container">
         <h1>Paris Mollo</h1>
-        <p>I am a software engineer with a focus on smart city technology. Based in France, originally from Brazil, I am currently pursuing a Masters in Computer Engineering at Sorbonne Université, devoted to leveraging technology and science to address urban challenges.</p>
+        <h3>A Software Engineer on the rise</h3>
+        <p>I am a dynamic and innovative software engineer with a focus on smart city technology. Based in France, originally from Brazil, I am currently pursuing a Masters in Computer Engineering at the prestigious Sorbonne Université, devoted to leveraging technology and science to address pressing urban challenges.</p>
 
         <div class="section" id="appearances">
             <h2><i class="fas fa-microphone-alt"></i> Appearances</h2>
@@ -97,17 +83,17 @@
 
         <div class="section" id="articles">
             <h2><i class="fas fa-pen-fancy"></i> Articles</h2>
-            <p>Read about my <a href="https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256" target="_blank">Fire detection algorithm project</a> and stay tuned for more articles in the future!</p>
+            <p>Interested in my thought process? Read about my <a href="https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256" target="_blank">Fire detection algorithm project</a> and stay tuned for more thought-provoking articles soon!</p>
         </div>
 
         <div class="section" id="projects">
             <h2><i class="fas fa-project-diagram"></i> Projects</h2>
-            <p>For an overview of my work in smart city technology, visit my <a href="https://github.com/parismollo" target="_blank">Github page</a>. It includes numerous open-source projects, take a look at my current endeavor at <a href="https://www.mia-labs.com/" target="_blank">Mia Labs</a>.</p>
+            <p>For an overview of my work in smart city technology, visit my <a href="https://github.com/parismollo" target="_blank">Github page</a>. It includes numerous open-source projects on Machine Learning and a variety of fascinating topics. Also, take a look at my current endeavor at <a href="https://www.mia-labs.com/" target="_blank">Mia Labs</a>.</p>
         </div>
 
         <div class="section" id="certifications">
             <h2><i class="fas fa-certificate"></i> Certifications</h2>
-            <p>View the certifications and workshops I have completed <a href="https://github.com/parismollo/parismollo.github.io/tree/main/certifications" target="_blank">here</a>.</p>
+            <p>View the certifications and workshops I have successfully completed <a href="https://github.com/parismollo/parismollo.github.io/tree/main/certifications" target="_blank">here</a>.</p>
         </div>
 
         <div class="section" id="contact">
