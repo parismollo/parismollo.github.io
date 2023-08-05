@@ -6,7 +6,7 @@
     <title>Paris Mollo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"> 
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="resources/smart-city.png" type="image/png">
 
     <style>
         body {
@@ -15,6 +15,10 @@
             margin: 0;
             padding: 0;
             background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
         .container {
             max-width: 800px;
@@ -43,7 +47,7 @@
             margin: 10px 0;
         }
         a {
-            color: #000;
+            color: #60D394; /* Add this line */
             text-decoration: none;
         }
         a:hover {
@@ -64,15 +68,27 @@
             from {opacity: 0;}
             to {opacity: 1;}
         }
+        .icon {
+            height: 50px;
+            width: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .credits {
+            font-size: 5px !important;
+            color: #808080;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Paris Mollo</h1>
-        <p>I am software engineer with a focus on smart city technology. Based in France, originally from Brazil, I am currently pursuing a Masters in Computer Engineering at Sorbonne Université.</p>
+        <p>I'm a Software Engineer with a focus on smart city technologies. Based in France, originally from Brazil, I am currently pursuing a Masters in Computer Engineering at Sorbonne Université.</p>
 
         <div class="section" id="appearances">
-            <h2><i class="fas fa-microphone-alt"></i> Appearances</h2>
+            <h2><img src="resources/newspaper.png" class="icon" alt="Appearances Icon"> Appearances</h2>
             <ul>
                 <li><a href="https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr" target="_blank">TEDx Talk</a></li>
                 <li><a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank">Participation at Crowd4SDG</a></li>
@@ -81,22 +97,22 @@
         </div>
 
         <div class="section" id="articles">
-            <h2><i class="fas fa-pen-fancy"></i> Articles</h2>
+            <h2><img src="resources/document.png"  class="icon" alt="Articles Icon"> Articles</h2>
             <p>Read about my <a href="https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256" target="_blank">Fire detection algorithm project</a></p>
         </div>
 
         <div class="section" id="projects">
-            <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+            <h2><img src="resources/project.png"  class="icon" alt="Projects Icon"> Projects</h2>
             <p>For an overview of my work in smart city technology, visit my <a href="https://github.com/parismollo" target="_blank">Github page</a>. It includes numerous open-source projects. Also, take a look at my current endeavor at <a href="https://www.mia-labs.com/" target="_blank">Mia Labs</a>.</p>
         </div>
 
         <div class="section" id="certifications">
-            <h2><i class="fas fa-certificate"></i> Certifications</h2>
+            <h2><img src="resources/certificate.png" class="icon" alt="Certifications Icon"> Certifications</h2>
             <p>View the certifications and workshops I have completed <a href="https://github.com/parismollo/parismollo.github.io/tree/main/certifications" target="_blank">here</a>.</p>
         </div>
 
         <div class="section" id="contact">
-            <h2><i class="fas fa-id-card"></i> Contact</h2>
+            <h2><img src="resources/phone-book.png" class="icon" alt="Contact Icon"> Contact</h2>
             <div class="contact">
                 <a href="https://twitter.com/parismollo" target="_blank"><i class="fab fa-twitter"></i>@parismollo</a>
                 <a href="mailto:parismolloch@gmail.com"><i class="fas fa-envelope"></i>parismolloch@gmail.com</a>
@@ -104,8 +120,12 @@
         </div>
 
         <div class="section" id="resume">
-            <h2><i class="fas fa-file-alt"></i> Résumé</h2>
-            <a href="https://github.com/parismollo/parismollo.github.io/blob/main/cv_pm_2023.pdf" target="_blank">Download my CV here (English)</a>
+            <h2><img src="resources/cv.png" class="icon" alt="Résumé Icon"> Résumé</h2>
+            <p>Download my <a href="cv_pm_2023.pdf" target="_blank">CV here!</a></p>
+        </div>
+
+        <div class="section credits">
+            <p>Icons courtesy of FlatIcon.</p>
         </div>
     </div>
 </body>
