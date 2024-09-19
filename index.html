@@ -3,130 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paris Mollo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"> 
-    <link rel="icon" href="resources/smart-city.png" type="image/png">
-
+    <title>Paris Mollo - Distributed Systems Engineer</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #000;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #000000;
+            --accent-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #000000;
+            --card-background: #ffffff;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .job-title {
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #ffffff;
+        background-color: #59b359;
+        padding: 5px 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        }
+
+        nav {
+            background: var(--primary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            flex-wrap: wrap;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 30px 60px;
-            background-color: #fff;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
-            border-radius: 15px;
+
+        nav li {
+            margin: 0 15px;
         }
-        h1, h2, h3 {
-            color: #000;
-        }
-        h1 {
-            border-bottom: 1px solid #000;
-            padding-bottom: 10px;
-        }
-        h3 {
-            margin-top: -20px;
-            margin-bottom: 30px;
-            font-weight: 400;
-            color: #808080;
-        }
-        p {
-            font-size: 16px;
-            line-height: 24px;
-            margin: 10px 0;
-        }
-        a {
-            color: #60D394; /* Add this line */
+
+        nav a {
+            color: white;
             text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
         }
-        a:hover {
-            color: #808080;
-            transition: color 0.2s;
+
+        nav a:hover {
+            opacity: 0.7;
         }
-        .contact i, .section i {
-            padding-right: 10px;
+
+        section {
+            background: var(--card-background);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .contact a {
-            margin-right: 15px;
-            transition: color 0.2s;
+        header {
+        /* background-color: #f8f9fa; */
+        padding: 1rem 0;
+        /* border-radius: 10px; */
+        /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+        margin-bottom: 20px; /* Add some space below the header */
         }
+
+        .menu {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .menu li {
+        margin: 0.5rem;
+        }
+
+        .menu a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        }
+
+        .menu a:hover {
+            background-color: #59b359;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         .section {
-            animation: fadeIn 1s ease-in;
+            background-color: #ffffff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
+
+        .section h2 {
+            margin-top: 0;
+            color: #333;
         }
-        .icon {
-            height: 50px;
-            width: 50px;
-            vertical-align: middle;
-            margin-right: 10px;
+
+        section:hover {
+            transform: translateY(-5px);
         }
-        .credits {
-            font-size: 5px !important;
-            color: #808080;
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        }
+
+        .contact-item {
+        display: flex;
+        align-items: center;
+        }
+        .contact-label {
+        font-weight: bold;
+        min-width: 80px;
+        color: #ffffff;
+        background-color: #59b359;
+        padding: 5px 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px; /* Set a fixed height */
+        }
+
+        .contact-value {
+        color: #333;
+        }
+
+        .contact-value a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+        color: #007bff;
+        text-decoration: underline;
+        }
+
+        .project:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .project {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project h3 {
+            margin-top: 0;
+            color: #000000;
+        }
+
+        footer {
+            background: var(--secondary-color);
+            color: white;
             text-align: center;
-            margin-top: 20px;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Paris Mollo</h1>
-        <p>I'm a Distributed Systems Engineer with a focus on smart city technologies. Based in France, originally from Brazil, I am currently pursuing a Masters in Computer Engineering at Sorbonne Université.</p>
+    <header>
+        <div class="container">
+            <h1>Paris Mollo</h1>
+            <p class="job-title">Distributed Systems Engineer</p>
+        </div>
+    </header>
 
-        <div class="section" id="appearances">
-            <h2><img src="resources/newspaper.png" class="icon" alt="Appearances Icon"> Appearances</h2>
+    <header>
+        <nav class="container menu">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm a Distributed Systems Engineer with a focus on smart city technologies. Based in France, originally from Sao Paulo, Brazil. I am currently pursuing a Masters in Computer Engineering at Sorbonne Université. My passion lies in developing solutions for urban challenges using cutting-edge technologies.</p>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <h3>Master 2 in Distributed Systems and Applications</h3>
+            <p>Sorbonne Université</p>
+            <h3>BSc in Computer Science</h3>
+            <p>Université Paris Cité (Paris Descartes & Diderot)</p>
+        </section>
+
+        <section id="experience">
+            <h2>Work Experience</h2>
+            <h3>Amazon Web Services (AWS)</h3>
+            <p>Solutions Architect Intern (Summer 2024)</p>
+            <p>Software Engineer Intern (Summer 2022)</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="project">
+                <h3>R-S.A.F.E (Risk - Structural Analysis and Forecasting Engine)</h3>
+                <p>Digital twin of a city for infrastructure health and disaster risk monitoring</p>
+            </div>
+            <div class="project">
+                <h3>FLOW (FLOW forecasting)</h3>
+                <p>Meteorological data improvement for flood and drought prevention</p>
+            </div>
+            <div class="project">
+                <h3>FIRES (Fire Image Recognition and Emergency System)</h3>
+                <p>Machine learning model for recognizing fire hazards in surveillance camera footage and environment categorization</p>
+            </div>
+            <div class="project">
+                <h3>CoSMiC (Coherent Sharing of Memory-mapped Content)</h3>
+                <p>Solution for multi-process memory-mapped file sharing</p>
+            </div>
+            <div class="project">
+                <h3>OLIFS (Optimized Light Insertion File System)</h3>
+                <p>Optimized data insertion features for Linux 6.5.7 file system</p>
+            </div>
+            <div class="project">
+                <h3>ARMS (Advanced Risk Management System)</h3>
+                <p>Urban risk management tool</p>
+            </div>
+            <div class="project">
+                <h3>CHATTER (Communication Hub And Text Transmission with Efficient Routing)</h3>
+                <p>Client/server communication protocol for discussions and file sharing</p>
+            </div>
+            <div class="project">
+                <h3>LEAF (Local Environmental Analysis Framework)</h3>
+                <p>Environmental monitoring system for parks</p>
+            </div>
+            <div class="project">
+                <h3>RESCUE (Responsive Emergency System for Communicating Urgent Events)</h3>
+                <p>Emergency communication system for park visitors</p>
+            </div>
+            <div class="project">
+                <h3>SLASH (Sophisticated Linux-like Advanced SHell)</h3>
+                <p>Custom shell implementation with advanced functionalities</p>
+            </div>
+            <div class="project">
+                <h3>FINDER (Fast Interactive Network-based Directional Explorer and Router)</h3>
+                <p>Graphical application for pathfinding algorithms</p>
+            </div>
+            <div class="project">
+                <h3>SHIELD (Secure Handling of Information with Enhanced Leak Detection)</h3>
+                <p>Managed application security process for internal AWS web application</p>
+            </div>
+            <div class="project">
+                <h3>PULSE (Predictive Urban Logistics and Street Efficiency)</h3>
+                <p>Exploratory Data Analysis and Machine Learning for urban traffic behavior</p>
+            </div>
+            <div class="project">
+                <h3>CERES (Comprehensive Environmental Refuse Evaluation System)</h3>
+                <p>Waste management tool for trash volume tracking</p>
+            </div>
+            <div class="project">
+                <h3>MEDIC (Machine learning Enhanced Diagnostic Imaging Classifier)</h3>
+                <p>Practice project using Sklearn Breast Cancer dataset for classification</p>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2>Certifications</h2>
+            <ul>
+                <li>AWS Certified Solutions Architect - Associate</li>
+                <li>AWS Certified Cloud Practitioner</li>
+                <li>IBM Blockchain Foundations Developer</li>
+            </ul>
+        </section>
+
+        <section id="appearances">
+            <h2>Appearances & Collaborations</h2>
             <ul>
                 <li><a href="https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr" target="_blank">TEDx Talk</a></li>
-                <li><a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank">Participation at Crowd4SDG</a></li>
+                <li><a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank">Participation at Crowd4SDG and CERN IdeaSquare</a></li>
                 <li><a href="https://u-paris.fr/des-etudiants-mobilises-autour-des-enjeux-climatiques/" target="_blank">Collaboration with Université de Paris</a></li>
             </ul>
-        </div>
+        </section>
 
-        <div class="section" id="articles">
-            <h2><img src="resources/document.png"  class="icon" alt="Articles Icon"> Articles</h2>
-            <p>Read about my <a href="https://parismollochristondis.medium.com/fire-hazard-detection-with-convolutional-neural-networks-ef92dbb89256" target="_blank">Fire detection algorithm project</a></p>
-        </div>
-
-        <div class="section" id="projects">
-            <h2><img src="resources/project.png"  class="icon" alt="Projects Icon"> Projects</h2>
-            <p>For an overview of my work in smart city technology, visit my <a href="https://github.com/parismollo" target="_blank">Github page</a>. It includes numerous open-source projects. Also, take a look at my current endeavor at Mia Labs.</p>
-        </div>
-
-        <div class="section" id="certifications">
-            <h2><img src="resources/certificate.png" class="icon" alt="Certifications Icon"> Certifications</h2>
-            <p>View the certifications and workshops I have completed <a href="https://github.com/parismollo/parismollo.github.io/tree/main/certifications" target="_blank">here</a>.</p>
-        </div>
-
-        <div class="section" id="contact">
-            <h2><img src="resources/phone-book.png" class="icon" alt="Contact Icon"> Contact</h2>
-            <div class="contact">
-                <a href="https://twitter.com/parismollo" target="_blank"><i class="fab fa-twitter"></i>@parismollo</a>
-                <a href="mailto:parismolloch@gmail.com"><i class="fas fa-envelope"></i>parismolloch@gmail.com</a>
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">parismolloch@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Twitter</span>
+                    <span class="contact-value">@parismollo</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">parismollo</span>
+                </div>
             </div>
-        </div>
-
-        <div class="section" id="resume">
-            <h2><img src="resources/cv.png" class="icon" alt="Résumé Icon"> Résumé</h2>
-            <p>Download my <a href="cv_pm_2023.pdf" target="_blank">CV here!</a></p>
-        </div>
-
-        <div class="section credits">
-            <p>Icons courtesy of FlatIcon.</p>
-        </div>
+        </section>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Paris Mollo. All rights reserved.</p>
+    </footer>
 </body>
 </html>
