@@ -46,6 +46,40 @@
             opacity: 0.8;
         }
 
+
+        education-item {
+        margin-bottom: 2rem;
+        }
+
+        .education-item h3 {
+        margin-bottom: 0.5rem;
+        }
+
+        .education-item p {
+        margin-bottom: 1rem;
+        }
+
+        .education-item h4 {
+        margin-bottom: 0.5rem;
+        color: #007bff;
+        }
+
+        .topic-list {
+        list-style-type: none;
+        padding-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        }
+
+        .topic-list li {
+        background-color: #f0f0f0;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        color: #333;
+        }
+
         .job-title {
         display: inline-block;
         font-size: 1.2rem;
@@ -274,7 +308,7 @@
         </div>
     </header>
 
-    <header>
+    <!-- <header>
         <nav class="container menu">
           <ul>
             <li><a href="#about">About</a></li>
@@ -285,7 +319,7 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-    </header>
+    </header> -->
 
     <div class="container">
         <section id="about">
@@ -295,11 +329,39 @@
 
         <section id="education">
             <h2>Education</h2>
-            <h3>Master 2 in Distributed Systems and Applications</h3>
-            <p>Sorbonne Université</p>
-            <h3>BSc in Computer Science</h3>
-            <p>Université Paris Cité (Paris Descartes & Diderot)</p>
+            <div class="education-item">
+                <h3>Master 2 in Distributed Systems and Applications</h3>
+                <p>Sorbonne Université</p>
+                <ul class="topic-list">
+                    <li>Advanced Architecture of Operating System Kernels</li>
+                    <li>Distributed Programming</li>
+                    <li>Distributed Algorithms</li>
+                    <li>Linux Kernel Programming</li>
+                    <li>Distributed and Client/Server Systems</li>
+                    <li>Multi-core Kernels and Virtualization</li>
+                    <li>Large-scale Distributed Systems Architecture and Development</li>
+                    <li>Research in Data Science and Methodology</li>
+                    <li>Advanced Software Architectures for Autonomic Cyber-physical Systems</li>
+                    <li>Professional Techniques - Environment and Application</li>
+                </ul>
+            </div>
+            <div class="education-item">
+                <h3>BSc in Computer Science</h3>
+                <p>Université Paris Cité (Paris Descartes & Diderot)</p>
+            </div>
         </section>
+
+        <!-- - Advanced Architecture of Operating System Kernels
+- Distributed Programming
+- Distributed Algorithms
+- Linux Kernel Programming
+- Distributed and Client/Server Systems
+- Multi-core Kernels and Virtualization
+- Large-scale Distributed Systems Architecture and Development
+- Research in Data Science and Methodology
+- Advanced Software Architectures for Autonomic Cyber-physical Systems
+- Professional Techniques - Environment and Application -->
+
 
         <section id="experience">
             <h2>Work Experience</h2>
