@@ -321,6 +321,60 @@
                 margin: 10px 0;
             }
         }
+        .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #6fcefa;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+        font-family: 'Poppins', sans-serif; 
+        font-weight: 500;
+        }
+
+        .floating-button:hover {
+        background-color: #4de0fd;
+        }
+
+        .modal {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 80%;
+        max-height: 80%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .scrollable-content {
+        overflow-y: auto;
+        max-height: 60vh;
+        }
+
+
+        .modal-content h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -497,9 +551,45 @@
             </div>
         </section>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Paris Mollo. All rights reserved.</p>
-    </footer>
+    <button id="showTopicsButton" class="floating-button">Show More</button>
+    <div id="topicsModal" class="modal">
+        <div class="modal-content">
+            <h2>Topics</h2>
+            <div class="scrollable-content">
+                <ul class="topic-list">
+                    <li>Software Engineer at WeCashUp: Implemented Hyperledger Fabric and developed smart contracts with EVM</li>
+                    <li>Data Analyst at Botmind: Developed scripts and modules for chatbot data cleaning and labeling</li>
+                    <li>Data Analyst at Biscoitê, São Paulo: Conducted Time Series Analysis and Exploratory Data Analysis (EDA) to draw insights from data. Additionally, worked on a project implementing IBM Watson technology.</li>
+                    <li>BSc in Economics from Aix Marseille Université & Paris 12</li>
+                    <li>Arduino programming</li>
+                    <li>Python (including advanced concepts and best practices)</li>
+                    <li>MySQL database querying</li>
+                    <li>Machine Learning (classification, unsupervised algorithms, dimensionality reduction)</li>
+                    <li>Deep Learning with Keras</li>
+                    <li>Data Visualization (Seaborn, Matplotlib)</li>
+                    <li>Data Science and analysis</li>
+                    <li>Neural Network implementation with NumPy</li>
+                    <li>Computer Vision with OpenCV</li>
+                    <li>MLOps and API development</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.getElementById('showTopicsButton');
+            const modal = document.getElementById('topicsModal');
+          
+            button.addEventListener('click', () => {
+                modal.style.display = 'flex';
+            });
+          
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
