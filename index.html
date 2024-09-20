@@ -47,8 +47,8 @@
         }
 
 
-        education-item {
-        margin-bottom: 2rem;
+        .education-item {
+            margin-bottom: 10px;
         }
 
         .education-item h3 {
@@ -56,7 +56,7 @@
         }
 
         .education-item p {
-        margin-bottom: 1rem;
+            margin-bottom: 1rem;
         }
 
         .education-item h4 {
@@ -73,11 +73,18 @@
         }
 
         .topic-list li {
-        background-color: #f0f0f0;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 0.9rem;
-        color: #333;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #333;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .topic-list li:hover {
+            background-color: #59b359;
+            color: #ffffff;
+            transform: translateY(-2px);
         }
 
         .job-title {
@@ -127,7 +134,13 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            border-color: #59b359;
         }
         header {
         /* background-color: #f8f9fa; */
@@ -237,6 +250,16 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
+        .aligned-list {
+            padding-left: 20px;
+            list-style-position: inside;
+        }
+
+        .aligned-list li {
+            text-indent: -20px;
+            padding-left: 20px;
+        }
+
         .project {
             background-color: #f8f9fa;
             padding: 20px;
@@ -342,7 +365,11 @@
                     <li>Large-scale Distributed Systems Architecture and Development</li>
                     <li>Research in Data Science and Methodology</li>
                     <li>Advanced Software Architectures for Autonomic Cyber-physical Systems</li>
-                    <li>Professional Techniques - Environment and Application</li>
+                    <li>Safety-critical systems development</li>
+                    <li>System Security and Administration</li>
+                    <li>Network Programming</li>
+                    <li>Computer Vision</li>
+                    <li>Database Systems</li>
                 </ul>
             </div>
             <div class="education-item">
@@ -436,7 +463,7 @@
 
         <section id="certifications">
             <h2>Certifications</h2>
-            <ul>
+            <ul class="aligned-list">
                 <li>AWS Certified Solutions Architect - Associate</li>
                 <li>AWS Certified Cloud Practitioner</li>
                 <li>IBM Blockchain Foundations Developer</li>
@@ -445,7 +472,7 @@
 
         <section id="appearances">
             <h2>Appearances & Collaborations</h2>
-            <ul>
+            <ul class="aligned-list">
                 <li><a href="https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr" target="_blank">TEDx Talk</a></li>
                 <li><a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank">Participation at Crowd4SDG and CERN IdeaSquare</a></li>
                 <li><a href="https://u-paris.fr/des-etudiants-mobilises-autour-des-enjeux-climatiques/" target="_blank">Collaboration with Université de Paris</a></li>
