@@ -376,6 +376,64 @@
         margin-top: 0;
         margin-bottom: 20px;
         }
+
+        .appearances-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .appearances-list li {
+            margin-bottom: 15px;
+        }
+
+        .appearance-link {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .appearance-link:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .appearance-link .icon {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .tedx-link {
+            border-color: #e62b1e;
+        }
+
+        .tedx-link:hover {
+            background-color: #ffeded;
+            color: #e62b1e;
+        }
+
+        .crowd4sdg-link {
+            border-color: #3498db;
+        }
+
+        .crowd4sdg-link:hover {
+            background-color: #eaf2fa;
+            color: #3498db;
+        }
+
+        .uparis-link {
+            border-color: #4caf50;
+        }
+
+        .uparis-link:hover {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
     </style>
 </head>
 <body>
@@ -465,7 +523,26 @@
                 </ul>
             </div>
         </section>
-
+        <section id="appearances">
+            <h2>Appearances & Collaborations</h2>
+            <ul class="appearances-list">
+                <li>
+                    <a href="https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr" target="_blank" class="appearance-link tedx-link">
+                        <span class="icon">🎤</span> TEDx Talk: Trace Its Own Way
+                    </a>
+                </li>
+                <li>
+                    <a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank" class="appearance-link crowd4sdg-link">
+                        <span class="icon">🌍</span> Crowd4SDG and CERN IdeaSquare: Potamoi Project
+                    </a>
+                </li>
+                <li>
+                    <a href="https://u-paris.fr/des-etudiants-mobilises-autour-des-enjeux-climatiques/" target="_blank" class="appearance-link uparis-link">
+                        <span class="icon">📰</span> Featured: Université de Paris Climate Initiative
+                    </a>
+                </li>
+            </ul>
+        </section>
         <section id="projects">
             <h2>Projects</h2>
             <div class="project">
@@ -532,15 +609,6 @@
                 <li>AWS Certified Solutions Architect - Associate</li>
                 <li>AWS Certified Cloud Practitioner</li>
                 <li>IBM Blockchain Foundations Developer</li>
-            </ul>
-        </section>
-
-        <section id="appearances">
-            <h2>Appearances & Collaborations</h2>
-            <ul class="aligned-list">
-                <li><a href="https://www.ted.com/talks/paris_mollo_trace_its_own_way/transcript?language=fr" target="_blank">TEDx Talk</a></li>
-                <li><a href="https://crowd4sdg.eu/wp-content/uploads/2021/03/Onepager_Potamoi.pdf" target="_blank">Participation at Crowd4SDG and CERN IdeaSquare</a></li>
-                <li><a href="https://u-paris.fr/des-etudiants-mobilises-autour-des-enjeux-climatiques/" target="_blank">Collaboration with Université de Paris</a></li>
             </ul>
         </section>
         <section id="personal" class="section">
