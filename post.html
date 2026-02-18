@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post — Paris Mollo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .back-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-bottom: 32px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .post-date {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+        }
+
+        .post-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            margin-bottom: 36px;
+            line-height: 1.2;
+        }
+
+        .post-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .post-body h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 36px 0 12px;
+            letter-spacing: -0.01em;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <a href="blog.html" class="back-link">&larr; Blog</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="post-section">
+            <div id="post-content">
+                <p style="color: var(--text-tertiary);">Loading...</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">Paris Mollo &copy; 2026</div>
+    </footer>
+
+    <script src="blog.js"></script>
+</body>
+</html>
