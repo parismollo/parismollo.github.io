@@ -11,7 +11,9 @@ async function renderBlogList() {
     // Sort newest first
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    container.innerHTML = posts.map(post => `
+    container.innerHTML = posts.length === 0
+        ? '<p style="color: var(--text-tertiary);">No posts yet. Check back soon.</p>'
+        : posts.map(post => `
         <a href="post.html?id=${post.id}" class="blog-card">
             <span class="blog-card-date">${formatDate(post.date)}</span>
             <h2 class="blog-card-title">${post.title}</h2>

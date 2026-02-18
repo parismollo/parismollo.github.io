@@ -1,16 +1,1 @@
-[
-  {
-    "id": "building-rsafe",
-    "title": "Building R-S.A.F.E: A Digital Twin for Urban Infrastructure",
-    "date": "2024-09-01",
-    "summary": "How I designed a city-scale digital twin using AWS IoT Core, Lambda, and Athena during my internship.",
-    "body": "During my internship at AWS in the summer of 2024, I had the opportunity to work on one of the most ambitious projects of my career so far: R-S.A.F.E (Risk - Structural Analysis and Forecasting Engine).\n\nThe core idea was to create a digital twin of urban infrastructure — bridges, tunnels, buildings — that could ingest real-time sensor data and flag potential structural risks before they become disasters.\n\n## Architecture\n\nThe system was built entirely on AWS. IoT sensors pushed data to IoT Core, which routed messages through SQS into Lambda functions for real-time processing. Processed data landed in S3 and was queryable via Athena for historical analysis.\n\nECS hosted the visualization layer, a 3D web interface that rendered the city infrastructure and overlaid risk scores on each asset.\n\n## Lessons learned\n\nThe hardest part wasn't the cloud architecture — it was modeling what 'risk' actually means for a bridge. That required reading civil engineering papers and working closely with domain experts. Technology is only as good as the domain knowledge behind it."
-  },
-  {
-    "id": "potamoi-flood",
-    "title": "Potamoi: Improving Flood Forecasts with Real-time Data Cleaning",
-    "date": "2021-06-15",
-    "summary": "A UN-backed project to improve meteorological data quality for flood and drought prevention.",
-    "body": "Potamoi was born out of a simple observation: flood forecasting models are only as good as the data fed into them. During the Crowd4SDG program backed by CERN IdeaSquare and the UN, our team set out to fix that.\n\n## The Problem\n\nHydrological models receive data from thousands of distributed weather stations. Many of those readings are noisy, delayed, or outright wrong. Traditionally, cleaning that data happened inside the model itself — slow and expensive.\n\n## Our Approach\n\nWe built an external data quality layer that intercepts sensor readings before they reach the model. Using statistical outlier detection and cross-referencing with neighboring stations, Potamoi flags and corrects bad readings in real time.\n\nThe result: cleaner inputs, faster model runs, and more accurate forecasts — without requiring the modeling teams to change anything on their end.\n\n## Impact\n\nWe presented the project to UN experts in Geneva. The feedback was encouraging — the approach is generalizable beyond floods to any domain relying on distributed sensor networks."
-  }
-]
+[]
