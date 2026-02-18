@@ -3,508 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Added meta description for better SEO -->
     <meta name="description" content="Paris Mollo - Distributed Systems Engineer specializing in distributed systems and smart city technologies.">
     <title>Paris Mollo - Distributed Systems Engineer</title>
     <link rel="icon" type="image/png" href="resources/smart-city.png">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        :root {
-            --bg: #000000;
-            --surface: #111111;
-            --surface-2: #1a1a1a;
-            --border: #2a2a2a;
-            --text-primary: #f5f5f7;
-            --text-secondary: #a1a1a6;
-            --text-tertiary: #6e6e73;
-            --accent: #f5f5f7;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background-color: var(--bg);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header.hero {
-            padding: 80px 0 48px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 0;
-        }
-
-        header.hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .job-title {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-tertiary);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 4px;
-            background: none;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        /* Nav */
-        nav.sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav.sticky-nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 0;
-            margin: 0;
-            gap: 0;
-        }
-
-        nav.sticky-nav li {
-            margin: 0;
-        }
-
-        nav.sticky-nav a {
-            display: block;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            padding: 14px 16px;
-            transition: color 0.2s ease;
-        }
-
-        nav.sticky-nav a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Sections */
-        section {
-            padding: 48px 0;
-            border-bottom: 1px solid var(--border);
-            background: transparent;
-            margin: 0;
-            border-radius: 0;
-            box-shadow: none;
-            transition: none;
-            border-left: none;
-            border-right: none;
-            border-top: none;
-        }
-
-        section:hover {
-            transform: none;
-            border-color: var(--border);
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            margin-bottom: 24px;
-        }
-
-        h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        /* Education */
-        .education-item {
-            margin-bottom: 28px;
-        }
-
-        .education-item h3 {
-            margin-bottom: 4px;
-        }
-
-        .education-item p {
-            color: var(--text-tertiary);
-            font-size: 0.88rem;
-            margin-bottom: 14px;
-        }
-
-        .topic-list {
-            list-style-type: none;
-            padding-left: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .topic-list li {
-            background-color: var(--surface-2);
-            border: 1px solid var(--border);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .topic-list li:hover {
-            background-color: var(--text-primary);
-            color: var(--bg);
-            border-color: var(--text-primary);
-        }
-
-        /* Experience */
-        .experience-item {
-            margin-bottom: 28px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .experience-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .experience-item h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-
-        .experience-item p {
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-            margin-bottom: 10px;
-        }
-
-        .experience-item strong {
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .aligned-list {
-            padding-left: 16px;
-            list-style: disc;
-        }
-
-        .aligned-list li {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            line-height: 1.7;
-            margin-bottom: 6px;
-        }
-
-        /* Projects */
-        .project {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            padding: 20px 24px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .project:hover {
-            border-color: #444;
-            background-color: var(--surface-2);
-        }
-
-        .project h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-
-        .project p {
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-            line-height: 1.65;
-        }
-
-        /* Appearances */
-        .appearances-list {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .appearance-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 12px 18px;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .appearance-link:hover {
-            background-color: var(--surface-2);
-            border-color: #444;
-            color: var(--text-primary);
-            transform: none;
-            box-shadow: none;
-        }
-
-        .appearance-link .icon {
-            margin-right: 10px;
-        }
-
-        .tedx-link, .crowd4sdg-link, .uparis-link {
-            border-color: var(--border);
-        }
-
-        .tedx-link:hover, .crowd4sdg-link:hover, .uparis-link:hover {
-            background-color: var(--surface-2);
-            color: var(--text-primary);
-        }
-
-        /* Contact */
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .contact-label {
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            min-width: 70px;
-            background: none;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-            height: auto;
-            justify-content: flex-start;
-            margin-right: 0;
-        }
-
-        .contact-value {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .contact-value a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .contact-value a:hover {
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        /* Certifications */
-        #certifications .aligned-list li {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Personal */
-        #personal h3 {
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            margin-top: 20px;
-            margin-bottom: 8px;
-        }
-
-        #personal h3:first-child {
-            margin-top: 0;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg);
-            color: var(--text-tertiary);
-            text-align: center;
-            padding: 32px 0;
-            font-size: 0.82rem;
-            border-top: 1px solid var(--border);
-            margin-top: 0;
-        }
-
-        /* Links */
-        a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--text-secondary);
-        }
-
-        /* Floating button */
-        .floating-button {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background-color: var(--text-primary);
-            color: var(--bg);
-            border: none;
-            border-radius: 980px;
-            padding: 12px 22px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.01em;
-        }
-
-        .floating-button:hover {
-            opacity: 0.85;
-            transform: scale(1.03);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-        }
-
-        .modal-content {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            padding: 32px;
-            border-radius: 18px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-        }
-
-        .scrollable-content {
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-
-        /* Menu (nav wrapper) */
-        .menu {
-            background: transparent;
-            border-radius: 0;
-            padding: 0;
-            box-shadow: none;
-        }
-
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .menu li {
-            margin: 0;
-        }
-
-        .menu a {
-            display: block;
-            text-decoration: none;
-            color: var(--text-secondary);
-            padding: 14px 16px;
-            font-size: 0.82rem;
-            font-weight: 500;
-            border-radius: 0;
-            transition: color 0.2s ease;
-        }
-
-        .menu a:hover {
-            background-color: transparent;
-            color: var(--text-primary);
-            box-shadow: none;
-        }
-
-        @media (max-width: 768px) {
-            header.hero h1 {
-                font-size: 2.2rem;
-            }
-
-            nav.sticky-nav a, .menu a {
-                padding: 10px 10px;
-                font-size: 0.78rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="hero">
@@ -515,21 +17,21 @@
     </header>
     <nav class="sticky-nav">
         <div class="container menu">
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </nav>
 
     <div class="container">
         <section id="about">
             <h2>About Me</h2>
-            <p>I'm a Distributed Systems Engineer focused on smart city technologies. Originally from São Paulo, Brazil, I’m now based in France and hold a Master’s degree in Computer Engineering from Sorbonne Université. My passion lies in developing software and hardware solutions to address urban challenges.</p>
+            <p>I'm a Distributed Systems Engineer focused on smart city technologies. Originally from São Paulo, Brazil, I'm now based in France and hold a Master's degree in Computer Engineering from Sorbonne Université. My passion lies in developing software and hardware solutions to address urban challenges.</p>
         </section>
 
         <section id="education">
@@ -560,28 +62,14 @@
             </div>
         </section>
 
-        <!-- - Advanced Architecture of Operating System Kernels
-- Distributed Programming
-- Distributed Algorithms
-- Linux Kernel Programming
-- Distributed and Client/Server Systems
-- Multi-core Kernels and Virtualization
-- Large-scale Distributed Systems Architecture and Development
-- Research in Data Science and Methodology
-- Advanced Software Architectures for Autonomic Cyber-physical Systems
-- Professional Techniques - Environment and Application -->
-
-
-        <section id="experience" class="section">
+        <section id="experience">
             <h2>Work Experience</h2>
-            
+
             <div class="experience-item">
                 <h3>Amazon Web Services (Amazon)</h3>
                 <p><strong>Solutions Architect (September 2025 – Present)</strong></p>
             </div>
 
-            <br>
-            
             <div class="experience-item">
                 <h3>Compagnie des Signaux (Mermec)</h3>
                 <p><strong>Virtualization Engineer Intern (March 2025 - September 2025)</strong></p>
@@ -591,7 +79,7 @@
                     <li>Deployed and evaluated a Proxmox VE cluster with Corosync for real-time, fault-tolerant orchestration; conducted architectural and cost-benefit comparison with vSphere stack.</li>
                 </ul>
             </div>
-            <br>
+
             <div class="experience-item">
                 <h3>Amazon Web Services (Amazon)</h3>
                 <p><strong>Solutions Architect Intern (Summer 2024)</strong></p>
@@ -600,7 +88,7 @@
                     <li>Managed an AppSec side project for an internal AWS web application, implementing security components and AI guardrails.</li>
                 </ul>
             </div>
-            <br>
+
             <div class="experience-item">
                 <h3>Amazon Web Services (Amazon)</h3>
                 <p><strong>Software Engineer Intern (Summer 2022)</strong></p>
@@ -610,6 +98,7 @@
                 </ul>
             </div>
         </section>
+
         <section id="appearances">
             <h2>Appearances & Collaborations</h2>
             <ul class="appearances-list">
@@ -630,6 +119,7 @@
                 </li>
             </ul>
         </section>
+
         <section id="projects">
             <h2>Projects</h2>
             <div class="project">
@@ -642,11 +132,11 @@
             </div>
             <div class="project">
                 <h3>FIRES (Fire Image Recognition and Emergency System)</h3>
-                <p>Developed a machine learning model for recognizing fire hazards in surveillance camera footage and environment categorization. This project uses Convolutional Neural Networks (CNNs) to process images and classify them for potential fire risks. The system includes multiple models for tasks such as fire detection, object classification (CIFAR10), pedestrian detection, and scene classification. Implemented as a web application, it allows users to upload images for analysis, demonstrating the potential for real-time fire hazard detection in smart city environments. The project aims to improve emergency response times and enhance urban safety through automated surveillance processing.</p>
+                <p>Developed a machine learning model for recognizing fire hazards in surveillance camera footage and environment categorization. This project uses Convolutional Neural Networks (CNNs) to process images and classify them for potential fire risks. The system includes multiple models for tasks such as fire detection, object classification (CIFAR10), pedestrian detection, and scene classification. Implemented as a web application, it allows users to upload images for analysis, demonstrating the potential for real-time fire hazard detection in smart city environments.</p>
             </div>
             <div class="project">
                 <h3>CoSMiC (Coherent Sharing of Memory-mapped Content)</h3>
-                <p>Developed a solution for multi-process memory-mapped file sharing that ensures data integrity and isolation. This project implements a copy-on-write mechanism to allow multiple processes to read from a shared memory-mapped file while isolating write operations. Key features include signal handling for write attempts, memory page duplication, change logging, and a merge system for consolidating modifications. The solution utilizes techniques such as page table manipulation via the PTEditor API and custom signal handlers. This approach improves upon traditional file I/O methods by reducing system call overhead and providing efficient, conflict-free concurrent access to shared files in a multi-process environment.</p>
+                <p>Developed a solution for multi-process memory-mapped file sharing that ensures data integrity and isolation. This project implements a copy-on-write mechanism to allow multiple processes to read from a shared memory-mapped file while isolating write operations. Key features include signal handling for write attempts, memory page duplication, change logging, and a merge system for consolidating modifications.</p>
             </div>
             <div class="project">
                 <h3>OLIFS (Optimized Light Insertion File System)</h3>
@@ -654,39 +144,39 @@
             </div>
             <div class="project">
                 <h3>ARMS (Advanced Risk Management System) / SafeLeaf</h3>
-                <p>Developed an emergency response system for public parks, integrating hardware and software components to ensure visitor safety. The system features strategically placed Emergency Alert Stations with multiple buttons for different emergency types, LED indicators for status updates, and a Central Monitoring System for real-time alert tracking and response coordination. Key components include a Java-based backend using Spring Boot, a web interface for park staff, and potential integration with local authorities.
+                <p>Developed an emergency response system for public parks, integrating hardware and software components to ensure visitor safety. The system features strategically placed Emergency Alert Stations with multiple buttons for different emergency types, LED indicators for status updates, and a Central Monitoring System for real-time alert tracking and response coordination.</p>
             </div>
             <div class="project">
                 <h3>CHATTER (Client-server Handling Advanced Threaded Transmission and Emergency Response)</h3>
-                <p>Developed a client-server communication system implementing a "Megaphone like" protocol. This project features a multi-threaded server capable of handling multiple client connections simultaneously, supporting both IPv4 and IPv6. Key functionalities include user registration, creating and posting to discussion threads, subscribing to threads for notifications, and file sharing capabilities. The system utilizes TCP for reliable communication and UDP for efficient file transfers. Advanced features include real-time notifications via multicast, thread subscriptions, and robust error handling.</p>
+                <p>Developed a client-server communication system implementing a "Megaphone like" protocol. This project features a multi-threaded server capable of handling multiple client connections simultaneously, supporting both IPv4 and IPv6. Key functionalities include user registration, creating and posting to discussion threads, subscribing to threads for notifications, and file sharing capabilities.</p>
             </div>
             <div class="project">
                 <h3>LEAF (Live Environmental Analysis Framework)</h3>
-                <p>Developed a park sensor network system for real-time environmental monitoring. The project integrates a Java Swing application for user interaction, a backend server for data processing, an IoT sensor network using ESP32 boards, and a cloud-hosted PostgreSQL database. Key features include a user-friendly interface displaying park maps with sensor locations, real-time data visualization from various environmental sensors (air quality, water quality, soil humidity, and microclimate), and a scalable architecture for future sensor additions.</p>
+                <p>Developed a park sensor network system for real-time environmental monitoring. The project integrates a Java Swing application for user interaction, a backend server for data processing, an IoT sensor network using ESP32 boards, and a cloud-hosted PostgreSQL database.</p>
             </div>
             <div class="project">
                 <h3>SLASH (Shell-Like Advanced System Handler)</h3>
-                <p>Developed a shell-like command-line interface that mimics and extends the functionality of traditional Unix shells. This project features a modular architecture with components for command interpretation, execution of both internal and external commands, wildcard expansion, and advanced I/O redirection including pipeline support. Key features include custom implementations of internal commands like 'cd', 'pwd', and 'exit', along with the ability to execute external commands.</p>
+                <p>Developed a shell-like command-line interface that mimics and extends the functionality of traditional Unix shells. This project features a modular architecture with components for command interpretation, execution of both internal and external commands, wildcard expansion, and advanced I/O redirection including pipeline support.</p>
             </div>
             <div class="project">
                 <h3>FINDER (Fast Interactive Network-based Directional Explorer and Router)</h3>
-                <p>Graphical application for pathfinding algorithms</p>
+                <p>Graphical application for pathfinding algorithms.</p>
             </div>
             <div class="project">
                 <h3>SHIELD (Secure Handling of Information with Enhanced Leak Detection)</h3>
-                <p>Managed application security process for internal AWS web application</p>
+                <p>Managed application security process for internal AWS web application.</p>
             </div>
             <div class="project">
                 <h3>PULSE (Predictive Urban Logistics and Street Efficiency)</h3>
-                <p>Exploratory Data Analysis and Machine Learning for urban traffic behavior</p>
+                <p>Exploratory Data Analysis and Machine Learning for urban traffic behavior.</p>
             </div>
             <div class="project">
                 <h3>Demeter (City Environmental Efficiency System)</h3>
-                <p>Designed and built a smart waste management system to optimize garbage collection in Paris, France. The project featured IoT integration and data analytics, with a focus on real-time monitoring of trash bin status. I developed a device capable of scanning the 3D shape of a bin’s contents and computing the approximate volume of waste. Key components included Arduino-based sensors for prototyping and an intuitive interface for waste management teams.</p>
+                <p>Designed and built a smart waste management system to optimize garbage collection in Paris, France. The project featured IoT integration and data analytics, with a focus on real-time monitoring of trash bin status. I developed a device capable of scanning the 3D shape of a bin's contents and computing the approximate volume of waste.</p>
             </div>
             <div class="project">
                 <h3>MEDIC (Machine learning Enhanced Diagnostic Imaging Classifier)</h3>
-                <p>Practice project using Sklearn Breast Cancer dataset for image classification</p>
+                <p>Practice project using Sklearn Breast Cancer dataset for image classification.</p>
             </div>
         </section>
 
@@ -699,41 +189,42 @@
                 <li>IBM Blockchain Foundations Developer</li>
             </ul>
         </section>
-        <section id="personal" class="section">
+
+        <section id="personal">
             <h2>Personal</h2>
-            
+
             <h3>Languages</h3>
             <ul class="aligned-list">
-              <li>Portuguese (native)</li>
-              <li>French (fluent)</li>
-              <li>English (fluent)</li>
+                <li>Portuguese (native)</li>
+                <li>French (fluent)</li>
+                <li>English (fluent)</li>
             </ul>
-          
+
             <h3>Sports</h3>
             <ul class="aligned-list">
-              <li>Boxing</li>
+                <li>Boxing</li>
             </ul>
-          
+
             <h3>Hobbies</h3>
             <ul class="aligned-list">
-              <li>Reading books</li>
-              <li>Electronics</li>
-              <li>3D Design</li>
+                <li>Reading books</li>
+                <li>Electronics</li>
+                <li>3D Design</li>
             </ul>
-          
+
             <h3>Favorite Personalities</h3>
             <ul class="aligned-list">
-              <li>Leonardo da Vinci</li>
-              <li>Santos Dumont</li>
+                <li>Leonardo da Vinci</li>
+                <li>Santos Dumont</li>
             </ul>
-          
+
             <h3>Family Origins</h3>
             <ul class="aligned-list">
-              <li>Brazilian</li>
-              <li>Greek</li>
-              <li>Italian</li>
+                <li>Brazilian</li>
+                <li>Greek</li>
+                <li>Italian</li>
             </ul>
-          </section>
+        </section>
 
         <section id="contact">
             <h2>Contact</h2>
@@ -753,6 +244,7 @@
             </div>
         </section>
     </div>
+
     <button id="showTopicsButton" class="floating-button">Show More</button>
     <div id="topicsModal" class="modal">
         <div class="modal-content">
@@ -777,24 +269,11 @@
             </div>
         </div>
     </div>
+
     <footer>
         <div class="container">Paris Mollo &copy; 2026</div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('showTopicsButton');
-            const modal = document.getElementById('topicsModal');
-          
-            button.addEventListener('click', () => {
-                modal.style.display = 'flex';
-            });
-          
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-    </script>
+
+    <script src="main.js"></script>
 </body>
 </html>
