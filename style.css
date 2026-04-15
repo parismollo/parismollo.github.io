@@ -98,10 +98,31 @@ nav.sticky-nav a {
     letter-spacing: 0.01em;
     padding: 14px 16px;
     transition: color 0.2s ease;
+    position: relative;
 }
 
-nav.sticky-nav a:hover {
+nav.sticky-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: calc(100% - 32px);
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: transform 0.25s ease;
+    transform-origin: center;
+}
+
+nav.sticky-nav a:hover,
+nav.sticky-nav a.active {
     color: var(--text-primary);
+}
+
+nav.sticky-nav a:hover::after,
+nav.sticky-nav a.active::after {
+    transform: translateX(-50%) scaleX(1);
 }
 
 /* Sections */
@@ -493,4 +514,16 @@ a:hover {
         padding: 10px 10px;
         font-size: 0.78rem;
     }
+}
+
+/* Scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

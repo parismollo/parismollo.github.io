@@ -29,12 +29,12 @@
     </nav>
 
     <div class="container">
-        <section id="about">
+        <section id="about" class="reveal">
             <h2>About Me</h2>
             <p>I'm a Distributed Systems Engineer focused on smart city technologies. Originally from São Paulo, Brazil, I'm now based in France and hold a Master's degree in Computer Engineering from Sorbonne Université. My passion lies in developing software and hardware solutions to address urban challenges.</p>
         </section>
 
-        <section id="education">
+        <section id="education" class="reveal">
             <h2>Education</h2>
             <div class="education-item">
                 <h3>Master 2 in Distributed Systems and Applications</h3>
@@ -62,7 +62,7 @@
             </div>
         </section>
 
-        <section id="experience">
+        <section id="experience" class="reveal">
             <h2>Work Experience</h2>
 
             <div class="experience-item">
@@ -99,7 +99,7 @@
             </div>
         </section>
 
-        <section id="appearances">
+        <section id="appearances" class="reveal">
             <h2>Appearances & Collaborations</h2>
             <ul class="appearances-list">
                 <li>
@@ -120,8 +120,12 @@
             </ul>
         </section>
 
-        <section id="projects">
+        <section id="projects" class="reveal">
             <h2>Projects</h2>
+            <div class="project">
+                <h3>Grid Guardian (SCADA Alarm Data Streaming System)</h3>
+                <p>A cloud-based data streaming platform that simulates SCADA alarm data ingestion and processes it through an AI-powered workflow for power grid monitoring and analysis. The system streams alarm records (codes, targets, severity, categories, descriptions) from a CSV catalog to AWS Kinesis Data Streams via a containerized Java application running on AWS Fargate, with configurable scenarios ranging from 2 to 100 records/sec. A Lambda processor batches incoming records and triggers an AWS Step Functions AI workflow for analysis, while two frontend dashboards provide real-time control and monitoring. Infrastructure is fully automated with AWS CDK, covering VPC, ECS, Kinesis, Lambda, API Gateway, S3, and CloudFront for secure HTTPS delivery.</p>
+            </div>
             <div class="project">
                 <h3>R-S.A.F.E (Risk - Structural Analysis and Forecasting Engine)</h3>
                 <p>Developed a comprehensive digital twin system for urban infrastructure monitoring and disaster risk management. This AWS-based solution integrates IoT sensors, real-time data processing, and AI-powered risk assessment to enhance city safety and infrastructure maintenance. Key features include a 3D visualization of city infrastructure, real-time sensor data analysis, and an alert system for potential hazards. The project utilizes various AWS services such as IoT Core, Lambda, SQS, ECS, and Athena, along with custom hardware solutions for data collection.</p>
@@ -180,7 +184,7 @@
             </div>
         </section>
 
-        <section id="certifications">
+        <section id="certifications" class="reveal">
             <h2>Certifications</h2>
             <ul class="aligned-list">
                 <li>AWS Certified Solutions Architect - Associate</li>
@@ -190,7 +194,7 @@
             </ul>
         </section>
 
-        <section id="personal">
+        <section id="personal" class="reveal">
             <h2>Personal</h2>
 
             <h3>Languages</h3>
@@ -226,7 +230,7 @@
             </ul>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="reveal">
             <h2>Contact</h2>
             <div class="contact-info">
                 <div class="contact-item">
