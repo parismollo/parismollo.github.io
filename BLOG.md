@@ -1,37 +1,90 @@
 # How to write a blog post
 
-Open `posts.json` and add an object to the array:
+Add an object to the array in `posts.json`:
 
 ```json
 [
   {
     "id": "my-post-slug",
     "title": "My Post Title",
-    "date": "2026-02-18",
+    "author": "Paris Mollo",
+    "date": "2026-09-06",
     "summary": "One or two sentences shown on the blog listing page.",
-    "body": "Full content of the post goes here."
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "The opening paragraph can include an [external link](https://example.com)."
+      },
+      {
+        "type": "heading",
+        "text": "A section heading"
+      },
+      {
+        "type": "image",
+        "src": "post-assets/example.png",
+        "alt": "A concise description of the image.",
+        "caption": "An optional visible caption.",
+        "source": "Source name",
+        "sourceUrl": "https://example.com/source",
+        "width": 1200,
+        "height": 800
+      }
+    ]
   }
 ]
 ```
 
-## Fields
+## Post fields
 
-- `id` — URL slug, no spaces (e.g. `"building-rsafe"`). Must be unique.
-- `title` — displayed as the post heading.
-- `date` — format `YYYY-MM-DD`. Posts are sorted newest first.
-- `summary` — short preview shown on the blog listing page.
-- `body` — full post content. Supports basic markdown:
+- `id`: unique URL slug with no spaces.
+- `title`: article heading and browser title.
+- `author`: optional author name displayed below the title.
+- `date`: publication date in `YYYY-MM-DD` format. Posts are sorted newest first.
+- `summary`: short preview shown on the blog listing page.
+- `content`: ordered list of article content blocks.
 
-## Body formatting
+## Content blocks
 
-Separate blocks with a blank line (`\n\n`).
-
-- `# Heading` → `<h1>`
-- `## Heading` → `<h2>`
-- Any other block → paragraph
-
-Since the body is a JSON string, use `\n` for newlines:
+### Paragraph
 
 ```json
-"body": "Intro paragraph.\n\n## A Section\n\nAnother paragraph."
+{
+  "type": "paragraph",
+  "variant": "intro",
+  "text": "Paragraph text with an optional [link](https://example.com)."
+}
 ```
+
+Paragraphs support external Markdown-style links. Links open in a new browser tab.
+
+### Heading
+
+```json
+{
+  "type": "heading",
+  "text": "Section heading"
+}
+```
+
+Headings render as level-two headings beneath the article title.
+
+### Image
+
+```json
+{
+  "type": "image",
+  "src": "post-assets/example.png",
+  "alt": "A meaningful description for readers who cannot see the image.",
+  "caption": "Optional caption shown below the image.",
+  "source": "Source name",
+  "sourceUrl": "https://example.com/source",
+  "width": 1200,
+  "height": 800
+}
+```
+
+Use a path relative to the website root. Always provide accurate `alt`, `width`, and `height` values. Use `source` for the attribution label and add `sourceUrl` when an exact public source page is available. The dimensions preserve layout while the image loads. Images are responsive and load lazily.
+
+## Legacy body format
+
+Older posts may still use a `body` string. Blank-line-separated paragraphs and headings beginning with `#` or `##` remain supported, but new posts should use structured `content` blocks.

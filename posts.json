@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "id": "sandur-connected-subsea-cable-inspection-demonstrator",
+    "title": "Sandur: Building a Connected Subsea Cable Inspection Demonstrator",
+    "author": "Paris Mollo",
+    "date": "2026-09-06",
+    "summary": "A workbench demonstrator that connects sensing, motion, embedded software, mechanical design, and cloud connectivity to explore subsea cable inspection.",
+    "content": [
+      {
+        "type": "paragraph",
+        "variant": "intro",
+        "text": "Hi, I'm Paris Mollo, and this is my first blog post. I hope you enjoy reading it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Subsea cables are easy to forget because we rarely see them. Yet they form the physical backbone of intercontinental internet connectivity. Their location beneath the sea does not make them immune to damage: fishing vessels and dragged anchors cause most cable faults, while earthquakes and other environmental events also contribute. [TeleGeography's Submarine Cable FAQ](https://www2.telegeography.com/submarine-cable-faqs-frequently-asked-questions) provides a clear overview of how these cables work, where they are installed, and why they sometimes fail. For a global view of where these systems run, explore the [Submarine Cable Map](https://www.submarinecablemap.com/)."
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/blog_image_1.png",
+        "alt": "Cross-section showing the protective layers of a submarine telecommunications cable.",
+        "caption": "Figure 1. A submarine telecommunications cable uses multiple protective layers around a small optical-fibre core.",
+        "source": "Wikipedia",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Submarine_communications_cable",
+        "width": 900,
+        "height": 690
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/blog_image_2.png",
+        "alt": "A diver working on a submarine cable in shallow water.",
+        "caption": "Figure 2. A diver working on a submarine cable in shallow water.",
+        "source": "Wind Systems Magazine",
+        "sourceUrl": "https://www.windsystemsmag.com/the-latest-advancements-in-submarine-cables-protection/",
+        "width": 1267,
+        "height": 2009
+      },
+      {
+        "type": "paragraph",
+        "text": "The challenge is not only to confirm that a cable was buried correctly when it was installed. It is to verify that the cable remains protected months and years later."
+      },
+      {
+        "type": "paragraph",
+        "text": "To explore this problem, I spent part of this summer building a small connected demonstrator as a personal project. It is not an underwater vehicle and does not attempt to reproduce real marine conditions. Instead, it models the core inspection loop: move a sensor along a route, collect measurements at known positions, and send the resulting data to a remote system. The demonstrator combines sensing, motion, embedded software, mechanical design, and cloud connectivity."
+      },
+      {
+        "type": "paragraph",
+        "text": "This article explains how I designed the demonstrator, how each part works, and how the pieces fit together."
+      }
+    ]
+  }
+]
