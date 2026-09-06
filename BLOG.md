@@ -62,11 +62,12 @@ Paragraphs support external Markdown-style links and `**bold text**`. Links open
 ```json
 {
   "type": "heading",
+  "level": 3,
   "text": "Section heading"
 }
 ```
 
-Headings render as level-two headings beneath the article title.
+Headings default to level two beneath the article title. Set `level` to `3` or `4` for nested subsections.
 
 ### List
 

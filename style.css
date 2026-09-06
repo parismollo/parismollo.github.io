@@ -571,7 +571,7 @@ a:hover {
     border: 1px solid var(--border);
     border-radius: 14px;
     object-fit: contain;
-    background: var(--surface);
+    background: var(--bg);
 }
 
 .post-figure figcaption {
@@ -690,5 +690,23 @@ a:hover {
 
 .post-figure--light img {
     padding: 12px;
-    background: #f7f3e8;
+    background: #ffffff;
+}
+
+/* Nested blog headings */
+.post-body h3 {
+    margin: 30px 0 12px;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+}
+
+.post-body h4 {
+    margin: 26px 0 12px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }

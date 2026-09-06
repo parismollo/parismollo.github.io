@@ -157,6 +157,73 @@
       {
         "type": "paragraph",
         "text": "A full run therefore produces a sequence of small depth maps, each associated with a position along the rail."
+      },
+      {
+        "type": "heading",
+        "text": "3. How I built it"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.1 Electronics"
+      },
+      {
+        "type": "paragraph",
+        "text": "The electronics are organised around two ESP32 development boards. An ESP32 is a small microcontroller with enough processing power for sensors and motor control, plus built-in Wi-Fi and short-range wireless communication."
+      },
+      {
+        "type": "paragraph",
+        "text": "Using two controllers gave each one a clear responsibility."
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/blog_image_4.png",
+        "alt": "Pinout diagram of an ESP-WROOM-32 development board showing its GPIO, power, communication, touch, ADC, and DAC pins.",
+        "caption": "Figure 4. ESP32 development-board pinout and available interfaces.",
+        "source": "Impl Rust",
+        "sourceUrl": "https://esp32.implrust.com/esp32-intro/pinout.html",
+        "width": 1366,
+        "height": 780
+      },
+      {
+        "type": "heading",
+        "level": 4,
+        "text": "Sensor node"
+      },
+      {
+        "type": "paragraph",
+        "text": "The moving node contains:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "One ESP32 development board",
+          "One VL53L5CX time-of-flight sensor",
+          "A 5 V USB power source"
+        ]
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/image.png",
+        "alt": "VL53L5CX time-of-flight distance-sensor carrier board with its optical sensor, regulator, passive components, and connection pads visible.",
+        "caption": "Figure 5. The VL53L5CX 8 × 8-zone time-of-flight distance-sensor carrier used by the moving node.",
+        "source": "RobotShop",
+        "sourceUrl": "https://eu.robotshop.com/fr/products/vl53l5cx-capteur-distance-tof-8x8-zones-porteur-400-cm-regulateur-tension",
+        "background": "light",
+        "width": 1330,
+        "height": 1182
+      },
+      {
+        "type": "paragraph",
+        "text": "A [time-of-flight sensor](https://en.wikipedia.org/wiki/Time-of-flight_camera) measures distance by emitting light and measuring how long it takes for the reflection to return. Since light travels at a known speed, the return time can be converted into distance."
+      },
+      {
+        "type": "paragraph",
+        "text": "The VL53L5CX does not return only one distance. It divides its field of view into an 8 by 8 grid, producing 64 measurements per frame. This matters because a single measurement only says how far away one point is. A grid begins to describe shape. If part of the surface is raised, lowered, or interrupted, neighbouring zones can reveal that change."
+      },
+      {
+        "type": "paragraph",
+        "text": "Each zone also has a status value. The firmware uses this status to distinguish valid distances from weak or unusable measurements. Treating every number as trustworthy would create false structure in the resulting surface map."
       }
     ]
   }

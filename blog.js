@@ -76,7 +76,8 @@ function renderPostContent(post) {
 
     return post.content.map((block) => {
         if (block.type === 'heading') {
-            return `<h2>${renderPlainText(block.text)}</h2>`;
+            const level = [2, 3, 4].includes(block.level) ? block.level : 2;
+            return `<h${level}>${renderPlainText(block.text)}</h${level}>`;
         }
 
         if (block.type === 'paragraph') {
