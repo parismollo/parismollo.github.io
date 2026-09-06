@@ -28,8 +28,8 @@ async function renderBlogList() {
             : posts.map(post => `
                 <a href="post.html?id=${encodeURIComponent(post.id)}" class="blog-card">
                     <time class="blog-card-date" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
-                    <h2 class="blog-card-title">${escapeHtml(post.title)}</h2>
-                    <p class="blog-card-summary">${escapeHtml(post.summary)}</p>
+                    <h2 class="blog-card-title">${renderPlainText(post.title)}</h2>
+                    <p class="blog-card-summary">${renderPlainText(post.summary)}</p>
                     <span class="blog-card-read">Read &rarr;</span>
                 </a>
             `).join('');
@@ -58,7 +58,7 @@ async function renderPost() {
         container.innerHTML = `
             <header class="post-header">
                 <time class="post-date" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
-                <h1 class="post-title">${escapeHtml(post.title)}</h1>
+                <h1 class="post-title">${renderPlainText(post.title)}</h1>
                 ${post.author ? `<p class="post-author">By ${escapeHtml(post.author)}</p>` : ''}
             </header>
             <div class="post-body">${renderPostContent(post)}</div>
@@ -76,7 +76,7 @@ function renderPostContent(post) {
 
     return post.content.map((block) => {
         if (block.type === 'heading') {
-            return `<h2>${escapeHtml(block.text)}</h2>`;
+            return `<h2>${renderPlainText(block.text)}</h2>`;
         }
 
         if (block.type === 'paragraph') {
@@ -100,11 +100,21 @@ function renderPostContent(post) {
             return `<p>${content}</p>`;
         }
 
+        if (block.type === 'list' && Array.isArray(block.items)) {
+            const tag = block.ordered ? 'ol' : 'ul';
+            const modifier = block.ordered ? ' post-list--ordered' : '';
+            const items = block.items
+                .map(item => `<li>${renderInlineText(item)}</li>`)
+                .join('');
+            return `<${tag} class="post-list${modifier}">${items}</${tag}>`;
+        }
+
         if (block.type === 'image' && isSafeUrl(block.src)) {
             const source = renderFigureSource(block);
+            const modifier = block.background === 'light' ? ' post-figure--light' : '';
             const caption = block.caption || source
                 ? `<figcaption>
-                    ${block.caption ? `<span>${escapeHtml(block.caption)}</span>` : ''}
+                    ${block.caption ? `<span>${renderPlainText(block.caption)}</span>` : ''}
                     ${source}
                 </figcaption>`
                 : '';
@@ -112,7 +122,7 @@ function renderPostContent(post) {
             const height = Number.isInteger(block.height) ? ` height="${block.height}"` : '';
 
             return `
-                <figure class="post-figure">
+                <figure class="post-figure${modifier}">
                     <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt || '')}"${width}${height} loading="lazy" decoding="async">
                     ${caption}
                 </figure>
@@ -140,8 +150,8 @@ function markdownToHtml(text) {
         .split('\n\n')
         .filter(Boolean)
         .map(block => {
-            if (block.startsWith('## ')) return `<h2>${escapeHtml(block.slice(3))}</h2>`;
-            if (block.startsWith('# ')) return `<h2>${escapeHtml(block.slice(2))}</h2>`;
+            if (block.startsWith('## ')) return `<h2>${renderPlainText(block.slice(3))}</h2>`;
+            if (block.startsWith('# ')) return `<h2>${renderPlainText(block.slice(2))}</h2>`;
             return `<p>${renderInlineText(block).replace(/\n/g, '<br>')}</p>`;
         })
         .join('');
@@ -153,12 +163,18 @@ function renderInlineText(text = '') {
     let lastIndex = 0;
 
     for (const match of text.matchAll(linkPattern)) {
-        result += escapeHtml(text.slice(lastIndex, match.index));
-        result += `<a href="${escapeHtml(match[2])}" target="_blank" rel="noopener noreferrer">${escapeHtml(match[1])}</a>`;
+        result += renderPlainText(text.slice(lastIndex, match.index));
+        result += `<a href="${escapeHtml(match[2])}" target="_blank" rel="noopener noreferrer">${renderPlainText(match[1])}</a>`;
         lastIndex = match.index + match[0].length;
     }
 
-    return result + escapeHtml(text.slice(lastIndex));
+    return result + renderPlainText(text.slice(lastIndex));
+}
+
+function renderPlainText(value = '') {
+    return escapeHtml(value)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\bSandur\b/g, '<span class="sandur-wordmark">Sandur</span>');
 }
 
 function isSafeUrl(value = '') {

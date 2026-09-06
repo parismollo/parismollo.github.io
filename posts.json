@@ -13,7 +13,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Subsea cables are easy to forget because we rarely see them. Yet they form the physical backbone of intercontinental internet connectivity. Their location beneath the sea does not make them immune to damage: fishing vessels and dragged anchors cause most cable faults, while earthquakes and other environmental events also contribute. [TeleGeography's Submarine Cable FAQ](https://www2.telegeography.com/submarine-cable-faqs-frequently-asked-questions) provides a clear overview of how these cables work, where they are installed, and why they sometimes fail. For a global view of where these systems run, explore the [Submarine Cable Map](https://www.submarinecablemap.com/)."
+        "text": "Subsea cables are easy to forget because we rarely see them. [Yet they form the physical backbone of intercontinental internet connectivity](https://www.submarinecablemap.com/). Their location beneath the sea does not make them immune to damage: fishing vessels and dragged anchors cause most cable faults, while earthquakes and other environmental events also contribute. [TeleGeography's Submarine Cable FAQ](https://www2.telegeography.com/submarine-cable-faqs-frequently-asked-questions) provides a clear overview of how these cables work, where they are installed, and why they sometimes fail."
       },
       {
         "type": "image",
@@ -48,6 +48,115 @@
       {
         "type": "paragraph",
         "text": "This article explains how I designed the demonstrator, how each part works, and how the pieces fit together."
+      },
+      {
+        "type": "heading",
+        "text": "1. The idea"
+      },
+      {
+        "type": "paragraph",
+        "highlight": "which means that a safely buried section can gradually become exposed.",
+        "text": "A subsea cable can stretch for hundreds or thousands of kilometres. Installing it below the seabed helps protect it, but the seabed is not static. Sediment shifts and sand cover changes, which means that a safely buried section can gradually become exposed."
+      },
+      {
+        "type": "paragraph",
+        "text": "Traditional inspections require specialised vessels and underwater vehicles. These systems are essential, but they are also expensive to deploy and are often used reactively or at scheduled intervals. This makes frequent inspection difficult."
+      },
+      {
+        "type": "paragraph",
+        "text": "For the purposes of this personal project, I began imagining a different model: many smaller autonomous systems, each responsible for a limited section of cable and able to report what it observes. My goal was to explore the idea and enjoy the engineering process, not to design something ready for real-world deployment."
+      },
+      {
+        "type": "paragraph",
+        "text": "The full idea uses two types of vehicle:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "An autonomous underwater vehicle travels along the cable and records measurements.",
+          "A surface vehicle acts as its docking station, communications relay, and connection to the internet."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "[Radio signals do not travel well through seawater](https://www.hydro-international.com/article/underwater-electromagnetic-propagation), so the underwater vehicle cannot depend on a continuous cloud connection. It must complete its mission locally, store its observations, and transfer them after returning to the surface station."
+      },
+      {
+        "type": "paragraph",
+        "highlight": "I reduced the idea to five essential functions:",
+        "text": "Building that entire system would require far more time than I had available this summer, and certainly more than one summer could provide. Instead, I reduced the idea to five essential functions:"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Move a sensor along a known route.",
+          "Measure the surface below it at regular positions.",
+          "Combine each measurement with its position.",
+          "Send the resulting inspection records to a remote system.",
+          "Preserve the latest machine state so it can be observed and configured remotely."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "That simplified model became Sandur. It may not be as ambitious as the original concept, but it was a practical place to start."
+      },
+      {
+        "type": "heading",
+        "text": "2. The concept"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sandur is a rail-mounted inspection demonstrator. A small carriage moves along an aluminium rail above a model surface. A distance sensor on the carriage looks down and measures the shape below it. A PVC pipe represents the cable."
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/blog_image_3.png",
+        "alt": "Hand-drawn Sandur concept diagram showing the sensor carriage on an aluminium rail, the motor and gateway node, a buried pipe, the six-step inspection cycle, and the resulting cloud inspection map.",
+        "caption": "Figure 3. The Sandur concept: a rail-mounted sensor, its inspection cycle, and the data flow to the cloud.",
+        "background": "light",
+        "width": 1448,
+        "height": 1086
+      },
+      {
+        "type": "paragraph",
+        "highlight": "instead models the information flow: move, observe, associate the observation with a location, and transmit the result.",
+        "text": "The demonstrator is not trying to reproduce underwater sensing physics. A real inspection system could use a sub-bottom profiler or another instrument capable of detecting structures beneath sediment. Sandur instead models the information flow: move, observe, associate the observation with a location, and transmit the result."
+      },
+      {
+        "type": "paragraph",
+        "text": "The system is split into two embedded nodes:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**The sensor node** travels on the carriage. It reads a grid of distance measurements and sends them wirelessly.",
+          "**The motor and gateway node** stays at the end of the rail. It moves the carriage, requests measurements, combines each sensor frame with the carriage position, and publishes the result through the internet."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "This separation reflects a practical constraint. Running a data cable from a moving carriage is possible, but it introduces drag, snagging, and cable-management problems. A wireless link keeps the moving assembly simpler. The fixed node can then handle the motor wiring, Wi-Fi connection, and secure cloud connection."
+      },
+      {
+        "type": "paragraph",
+        "text": "An inspection cycle works as follows:"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "The carriage begins at its defined starting point.",
+          "It moves a fixed distance along the rail.",
+          "It stops and measures the surface below.",
+          "The measurement is associated with its position along the route.",
+          "The resulting inspection record is sent to a remote system.",
+          "This process repeats until the carriage reaches the endpoint, after which it returns to the start."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "A full run therefore produces a sequence of small depth maps, each associated with a position along the rail."
       }
     ]
   }

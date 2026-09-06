@@ -1,0 +1,2 @@
+- add french version of blog
+- add disclaimer that I'm no expert in the topic and just having fun building something.

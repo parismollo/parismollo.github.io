@@ -646,3 +646,49 @@ a:hover {
 .handwritten-number:nth-of-type(even) {
     transform: rotate(3deg);
 }
+
+/* Blog content lists */
+.post-list {
+    margin: -4px 0 24px 1.2rem;
+    padding-left: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.post-list li {
+    padding-left: 0.35rem;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.post-list li:last-child {
+    margin-bottom: 0;
+}
+
+.post-list li::marker {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* Sandur wordmark */
+.sandur-wordmark {
+    display: inline-block;
+    color: #d9b778;
+    font-family: "Kode Mono", monospace;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    background: linear-gradient(110deg, #9b6637 0%, #d1a35f 28%, #f2d99b 52%, #c38a48 76%, #81502d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.post-figure--light img {
+    padding: 12px;
+    background: #f7f3e8;
+}

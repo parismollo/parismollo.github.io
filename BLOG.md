@@ -55,7 +55,7 @@ Add an object to the array in `posts.json`:
 }
 ```
 
-Paragraphs support external Markdown-style links. Links open in a new browser tab. Omit `variant` for a standard paragraph or use `"intro"` for an introductory callout. To mark only part of a paragraph, add a `highlight` field containing the exact text that should receive the standard yellow highlight treatment. Set `numberedNotes` to `true` to render inline numeric markers such as `(1)` in the handwritten annotation style.
+Paragraphs support external Markdown-style links and `**bold text**`. Links open in a new browser tab. Omit `variant` for a standard paragraph or use `"intro"` for an introductory callout. To mark only part of a paragraph, add a `highlight` field containing the exact text that should receive the standard yellow highlight treatment. Set `numberedNotes` to `true` to render inline numeric markers such as `(1)` in the handwritten annotation style.
 
 ### Heading
 
@@ -68,6 +68,21 @@ Paragraphs support external Markdown-style links. Links open in a new browser ta
 
 Headings render as level-two headings beneath the article title.
 
+### List
+
+```json
+{
+  "type": "list",
+  "ordered": true,
+  "items": [
+    "First item with an optional [link](https://example.com).",
+    "Second item."
+  ]
+}
+```
+
+Set `ordered` to `true` for a numbered list. Omit it or set it to `false` for a bulleted list. List items support the same external Markdown-style links as paragraphs.
+
 ### Image
 
 ```json
@@ -78,6 +93,7 @@ Headings render as level-two headings beneath the article title.
   "caption": "Optional caption shown below the image.",
   "source": "Source name",
   "sourceUrl": "https://example.com/source",
+  "background": "light",
   "width": 1200,
   "height": 800
 }
