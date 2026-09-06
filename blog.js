@@ -74,64 +74,188 @@ function renderPostContent(post) {
         return markdownToHtml(post.body || '');
     }
 
-    return post.content.map((block) => {
-        if (block.type === 'heading') {
-            const level = [2, 3, 4].includes(block.level) ? block.level : 2;
-            return `<h${level}>${renderPlainText(block.text)}</h${level}>`;
+    return post.content.map(renderPostBlock).join('');
+}
+
+function renderPostBlock(block) {
+    if (block.type === 'interactiveDemo' && Array.isArray(block.content)) {
+        const copy = block.content.map(renderPostBlock).join('');
+        if (!isSafeDemoPath(block.src)) return copy;
+
+        return `
+            <section class="post-demo-layout">
+                <div class="post-demo-copy">${copy}</div>
+                <div class="post-demo-preview">
+                    <iframe
+                        class="post-demo-iframe"
+                        src="${escapeHtml(block.src)}"
+                        title="${escapeHtml(block.title || 'Interactive control simulation')}"
+                        loading="lazy"
+                        sandbox="allow-scripts"
+                        referrerpolicy="no-referrer"
+                    ></iframe>
+                    <p class="post-demo-caption">Interactive device control panel from the Sandur demo.</p>
+                </div>
+            </section>
+        `;
+    }
+
+    if (block.type === 'disclaimer' && typeof block.text === 'string') {
+        const title = typeof block.title === 'string' && block.title.trim()
+            ? block.title
+            : 'Project disclaimer';
+
+        return `
+            <aside class="post-disclaimer" role="note" aria-label="${escapeHtml(title)}">
+                <strong class="post-disclaimer-title">${renderPlainText(title)}</strong>
+                <p>${renderInlineText(block.text)}</p>
+            </aside>
+        `;
+    }
+
+    if (block.type === 'heading') {
+        const level = [2, 3, 4].includes(block.level) ? block.level : 2;
+        return `<h${level}>${renderPlainText(block.text)}</h${level}>`;
+    }
+
+    if (block.type === 'paragraph') {
+        let content = renderInlineText(block.text);
+
+        if (block.highlight && block.text.includes(block.highlight)) {
+            const highlightStart = block.text.indexOf(block.highlight);
+            const before = block.text.slice(0, highlightStart);
+            const after = block.text.slice(highlightStart + block.highlight.length);
+            content = `${renderInlineText(before)}<mark class="text-highlight">${renderInlineText(block.highlight)}</mark>${renderInlineText(after)}`;
         }
 
-        if (block.type === 'paragraph') {
-            let content = renderInlineText(block.text);
-
-            if (block.highlight && block.text.includes(block.highlight)) {
-                const highlightStart = block.text.indexOf(block.highlight);
-                const before = block.text.slice(0, highlightStart);
-                const after = block.text.slice(highlightStart + block.highlight.length);
-                content = `${renderInlineText(before)}<mark class="text-highlight">${renderInlineText(block.highlight)}</mark>${renderInlineText(after)}`;
-            }
-
-            if (block.numberedNotes) {
-                content = content.replace(/\((\d+)\)/g, '<span class="handwritten-number">($1)</span>');
-            }
-
-            if (block.variant === 'intro') {
-                return `<p class="post-intro">${content}</p>`;
-            }
-
-            return `<p>${content}</p>`;
+        if (block.numberedNotes) {
+            content = content.replace(/\((\d+)\)/g, '<span class="handwritten-number">($1)</span>');
         }
 
-        if (block.type === 'list' && Array.isArray(block.items)) {
-            const tag = block.ordered ? 'ol' : 'ul';
-            const modifier = block.ordered ? ' post-list--ordered' : '';
-            const items = block.items
-                .map(item => `<li>${renderInlineText(item)}</li>`)
-                .join('');
-            return `<${tag} class="post-list${modifier}">${items}</${tag}>`;
+        if (block.variant === 'intro') {
+            return `<p class="post-intro">${content}</p>`;
         }
 
-        if (block.type === 'image' && isSafeUrl(block.src)) {
-            const source = renderFigureSource(block);
-            const modifier = block.background === 'light' ? ' post-figure--light' : '';
-            const caption = block.caption || source
-                ? `<figcaption>
-                    ${block.caption ? `<span>${renderPlainText(block.caption)}</span>` : ''}
-                    ${source}
-                </figcaption>`
-                : '';
-            const width = Number.isInteger(block.width) ? ` width="${block.width}"` : '';
-            const height = Number.isInteger(block.height) ? ` height="${block.height}"` : '';
+        return `<p>${content}</p>`;
+    }
 
-            return `
-                <figure class="post-figure${modifier}">
-                    <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt || '')}"${width}${height} loading="lazy" decoding="async">
-                    ${caption}
-                </figure>
-            `;
+    if (
+        block.type === 'mqttExample' &&
+        typeof block.topic === 'string' &&
+        block.payload !== undefined
+    ) {
+        let payload;
+
+        try {
+            payload = JSON.stringify(block.payload, null, 2);
+        } catch {
+            return '';
         }
 
-        return '';
-    }).join('');
+        return `
+            <figure class="post-code-block">
+                <figcaption>Published telemetry</figcaption>
+                <div class="post-code-topic">
+                    <span>MQTT topic</span>
+                    <code>${escapeHtml(block.topic)}</code>
+                </div>
+                <pre><code>${escapeHtml(payload)}</code></pre>
+            </figure>
+        `;
+    }
+
+    if (block.type === 'list' && Array.isArray(block.items)) {
+        const tag = block.ordered ? 'ol' : 'ul';
+        const modifier = block.ordered ? ' post-list--ordered' : '';
+        const items = block.items
+            .map(item => `<li>${renderInlineText(item)}</li>`)
+            .join('');
+        return `<${tag} class="post-list${modifier}">${items}</${tag}>`;
+    }
+
+    if (block.type === 'imageGroup' && Array.isArray(block.items)) {
+        const modifier = block.variant === 'compact-hardware'
+            ? ' post-figure-group--compact-hardware'
+            : '';
+        return `<div class="post-figure-group${modifier}">${block.items.map(renderPostBlock).join('')}</div>`;
+    }
+
+    if (
+        block.type === 'video' &&
+        typeof block.src === 'string' &&
+        typeof block.title === 'string' &&
+        block.title.trim() &&
+        isSafeMediaPath(block.src)
+    ) {
+        const caption = block.caption
+            ? `<figcaption>${renderPlainText(block.caption)}</figcaption>`
+            : '';
+        const width = Number.isInteger(block.width) ? ` width="${block.width}"` : '';
+        const height = Number.isInteger(block.height) ? ` height="${block.height}"` : '';
+
+        return `
+            <figure class="post-figure post-video">
+                <video
+                    class="post-video-media"
+                    controls
+                    preload="metadata"
+                    playsinline
+                    aria-label="${escapeHtml(block.title)}"
+                    ${width}${height}
+                >
+                    <source src="${escapeHtml(block.src)}" type="video/mp4">
+                    Your browser does not support HTML video.
+                    <a href="${escapeHtml(block.src)}">Download the video</a>.
+                </video>
+                ${caption}
+            </figure>
+        `;
+    }
+
+    if (block.type === 'image' && isSafeUrl(block.src)) {
+        const source = renderFigureSource(block);
+        const modifier = block.background === 'light' ? ' post-figure--light' : '';
+        const caption = block.caption || source
+            ? `<figcaption>
+                ${block.caption ? `<span>${renderPlainText(block.caption)}</span>` : ''}
+                ${source}
+            </figcaption>`
+            : '';
+        const width = Number.isInteger(block.width) ? ` width="${block.width}"` : '';
+        const height = Number.isInteger(block.height) ? ` height="${block.height}"` : '';
+
+        return `
+            <figure class="post-figure${modifier}">
+                <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt || '')}"${width}${height} loading="lazy" decoding="async">
+                ${caption}
+            </figure>
+        `;
+    }
+
+    return '';
+}
+
+function isSafeDemoPath(value = '') {
+    try {
+        const url = new URL(value, document.baseURI);
+        const expectedPath = new URL('sandur-post/sandur-dashboard-demo.html', document.baseURI).pathname;
+        return url.origin === window.location.origin && url.pathname === expectedPath;
+    } catch {
+        return false;
+    }
+}
+
+function isSafeMediaPath(value = '') {
+    try {
+        const url = new URL(value, document.baseURI);
+        const expected = new URL('sandur-post/plit-web.mp4', document.baseURI);
+        return url.origin === window.location.origin &&
+            url.pathname === expected.pathname &&
+            url.search === '' &&
+            url.hash === '';
+    } catch {
+        return false;
+    }
 }
 
 function renderFigureSource(block) {

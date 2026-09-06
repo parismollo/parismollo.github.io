@@ -13,7 +13,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Subsea cables are easy to forget because we rarely see them. [Yet they form the physical backbone of intercontinental internet connectivity](https://www.submarinecablemap.com/). Their location beneath the sea does not make them immune to damage: fishing vessels and dragged anchors cause most cable faults, while earthquakes and other environmental events also contribute. [TeleGeography's Submarine Cable FAQ](https://www2.telegeography.com/submarine-cable-faqs-frequently-asked-questions) provides a clear overview of how these cables work, where they are installed, and why they sometimes fail."
+        "text": "Subsea cables are easy to forget because we rarely see them. [Yet they form the physical backbone of intercontinental internet connectivity](https://www.submarinecablemap.com/). Despite lying beneath the sea, these cables remain vulnerable to damage: fishing vessels and dragged anchors cause most cable faults, while earthquakes and other environmental events also contribute. [TeleGeography's Submarine Cable FAQ](https://www2.telegeography.com/submarine-cable-faqs-frequently-asked-questions) provides a clear overview of how these cables work, where they are installed, and why they sometimes fail."
       },
       {
         "type": "image",
@@ -37,6 +37,7 @@
       },
       {
         "type": "paragraph",
+        "highlight": "It is to verify that the cable remains protected",
         "text": "The challenge is not only to confirm that a cable was buried correctly when it was installed. It is to verify that the cable remains protected months and years later."
       },
       {
@@ -50,21 +51,27 @@
         "text": "This article explains how I designed the demonstrator, how each part works, and how the pieces fit together."
       },
       {
+        "type": "disclaimer",
+        "title": "Project disclaimer",
+        "text": "Sandur is a personal project I built for learning and fun. It is a simple concept demonstrator, not a real production-ready solution, and it probably has hundreds of flaws."
+      },
+      {
         "type": "heading",
         "text": "1. The idea"
       },
       {
         "type": "paragraph",
         "highlight": "which means that a safely buried section can gradually become exposed.",
-        "text": "A subsea cable can stretch for hundreds or thousands of kilometres. Installing it below the seabed helps protect it, but the seabed is not static. Sediment shifts and sand cover changes, which means that a safely buried section can gradually become exposed."
+        "text": "A subsea cable can stretch for hundreds or thousands of kilometres. Installing it below the seabed helps protect it, but as we all know, the seabed is not static. Sediment shifts and sand cover changes, which means that a safely buried section can gradually become exposed."
       },
       {
         "type": "paragraph",
+        "highlight": "This makes frequent inspection difficult.",
         "text": "Traditional inspections require specialised vessels and underwater vehicles. These systems are essential, but they are also expensive to deploy and are often used reactively or at scheduled intervals. This makes frequent inspection difficult."
       },
       {
         "type": "paragraph",
-        "text": "For the purposes of this personal project, I began imagining a different model: many smaller autonomous systems, each responsible for a limited section of cable and able to report what it observes. My goal was to explore the idea and enjoy the engineering process, not to design something ready for real-world deployment."
+        "text": "For this personal project, I imagined a different model: many smaller autonomous systems, each responsible for a limited section of cable and able to report what it observes. I wanted to explore the idea and enjoy the engineering process, not design something ready for real-world deployment."
       },
       {
         "type": "paragraph",
@@ -73,8 +80,8 @@
       {
         "type": "list",
         "items": [
-          "An autonomous underwater vehicle travels along the cable and records measurements.",
-          "A surface vehicle acts as its docking station, communications relay, and connection to the internet."
+          "An autonomous underwater vehicle that travels along the cable and records measurements.",
+          "A surface vehicle that acts as its docking station, communications relay, and connection to the internet."
         ]
       },
       {
@@ -84,7 +91,7 @@
       {
         "type": "paragraph",
         "highlight": "I reduced the idea to five essential functions:",
-        "text": "Building that entire system would require far more time than I had available this summer, and certainly more than one summer could provide. Instead, I reduced the idea to five essential functions:"
+        "text": "I could not build that entire system in one summer. Instead, I reduced the idea to five essential functions:"
       },
       {
         "type": "list",
@@ -136,7 +143,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This separation reflects a practical constraint. Running a data cable from a moving carriage is possible, but it introduces drag, snagging, and cable-management problems. A wireless link keeps the moving assembly simpler. The fixed node can then handle the motor wiring, Wi-Fi connection, and secure cloud connection."
+        "text": "I split the work this way for a practical reason. I could run a data cable to the moving carriage, but that would introduce drag, snagging, and cable-management problems. A wireless link keeps the moving assembly simpler, while the fixed node handles the motor wiring, Wi-Fi connection, and secure cloud connection."
       },
       {
         "type": "paragraph",
@@ -219,11 +226,237 @@
       },
       {
         "type": "paragraph",
+        "highlight": "This matters because a single measurement only says how far away one point is. A grid begins to describe shape.",
         "text": "The VL53L5CX does not return only one distance. It divides its field of view into an 8 by 8 grid, producing 64 measurements per frame. This matters because a single measurement only says how far away one point is. A grid begins to describe shape. If part of the surface is raised, lowered, or interrupted, neighbouring zones can reveal that change."
       },
       {
         "type": "paragraph",
         "text": "Each zone also has a status value. The firmware uses this status to distinguish valid distances from weak or unusable measurements. Treating every number as trustworthy would create false structure in the resulting surface map."
+      },
+      {
+        "type": "heading",
+        "level": 4,
+        "text": "Motor and gateway node"
+      },
+      {
+        "type": "paragraph",
+        "text": "The fixed node contains:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "One ESP32 development board",
+          "One NEMA 17 stepper motor",
+          "One DRV8825 stepper motor driver",
+          "A 12 V motor power supply",
+          "A separate 5 V USB supply for the ESP32"
+        ]
+      },
+      {
+        "type": "imageGroup",
+        "variant": "compact-hardware",
+        "items": [
+          {
+            "type": "image",
+            "src": "sandur-post/blog_image_5.png",
+            "alt": "NEMA 17 stepper motor with a square metal faceplate, protruding shaft, black motor body, and four coloured wires.",
+            "caption": "Figure 6. The NEMA 17 stepper motor that drives the carriage along the rail.",
+            "source": "Amazon",
+            "background": "light",
+            "width": 1312,
+            "height": 1199
+          },
+          {
+            "type": "image",
+            "src": "sandur-post/blog_image_6.png",
+            "alt": "DRV8825 stepper motor driver carrier board with a purple circuit board, adjustment potentiometer, driver chip, and connection pins.",
+            "caption": "Figure 7. The DRV8825 carrier that translates ESP32 control signals into stepper-motor current.",
+            "source": "RobotShop",
+            "width": 1000,
+            "height": 1000
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "highlight": "The ESP32 tells the driver which direction to move and sends one pulse for each motor step.",
+        "text": "A microcontroller cannot power a stepper motor directly. Its pins produce logic signals, not the voltage and current required by motor coils. The DRV8825 sits between the controller and the motor. The ESP32 tells the driver which direction to move and sends one pulse for each motor step. The driver switches the higher-current motor supply accordingly."
+      },
+      {
+        "type": "paragraph",
+        "text": "A stepper motor is useful here because motion is divided into discrete steps. If the controller has sent 200 forward steps and no steps were missed, it can treat the carriage as being 200 steps from its starting point. This provides a simple position model without adding a separate position encoder."
+      },
+      {
+        "type": "paragraph",
+        "highlight": "In this version, I place the carriage at the start and define zero manually before an inspection",
+        "text": "That simplicity has a limitation: step count is an estimate, not physical proof. If the motor stalls or the belt slips, the software position and real position can diverge. In this version, I place the carriage at the start and define zero manually before an inspection. Future versions could add limit switches or an encoder for automatic homing and position verification."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.2 Sensor connections"
+      },
+      {
+        "type": "paragraph",
+        "text": "The distance sensor connects to the moving ESP32 through [I2C](https://en.wikipedia.org/wiki/I2C), a short-distance digital bus that uses two signal wires:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "**SDA** carries data.",
+          "**SCL** carries the clock that coordinates each transfer."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The firmware configures the sensor for an 8 by 8 grid and reads frames at 10 Hz. This provides a new surface map roughly every tenth of a second, although the gateway only records a frame when the carriage reaches an inspection point."
+      },
+      {
+        "type": "heading",
+        "level": 4,
+        "text": "Wireless link between the boards"
+      },
+      {
+        "type": "paragraph",
+        "text": "The two ESP32 boards communicate using [ESP-NOW](https://www.espressif.com/en/solutions/low-power-solutions/esp-now). This is a direct, low-overhead wireless protocol between nearby ESP32 devices."
+      },
+      {
+        "type": "paragraph",
+        "text": "The gateway sends a small capture request containing a sequence number. The sensor node replies with:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "The same sequence number",
+          "64 distance values",
+          "64 measurement-status values"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.3 Firmware"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sandur has separate firmware for the sensor node and the motor/gateway node."
+      },
+      {
+        "type": "heading",
+        "level": 4,
+        "text": "Sensor firmware"
+      },
+      {
+        "type": "paragraph",
+        "text": "On the sensor node, I continuously sample distance frames and keep the latest complete one. I only send that frame when the gateway requests a capture, so sensor sampling stays independent from inspection timing."
+      },
+      {
+        "type": "heading",
+        "level": 4,
+        "text": "Motor control firmware"
+      },
+      {
+        "type": "paragraph",
+        "text": "Motor movement is non-blocking, so the gateway can process serial commands, wireless packets, MQTT traffic, and state updates between motor steps."
+      },
+      {
+        "type": "paragraph",
+        "text": "I use a state machine to coordinate movement, captures, and the return to zero. At each measurement stop, the gateway requests a frame and waits up to one second. If none arrives, it records an error and continues. For valid replies, it stores the mission identifier, capture sequence, motor position, 64 distance measurements, and their validity statuses."
+      },
+      {
+        "type": "interactiveDemo",
+        "src": "sandur-post/sandur-dashboard-demo.html",
+        "title": "Interactive Sandur local control simulation",
+        "content": [
+          {
+            "type": "heading",
+            "level": 4,
+            "text": "Local control"
+          },
+          {
+            "type": "paragraph",
+            "text": "A USB serial interface lets an operator jog the carriage, set zero, maximum travel, and capture spacing, start or abort an inspection, and request the current state. The gateway returns both structured JSON events and readable diagnostics."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.4 Cloud application with IoT Core"
+      },
+      {
+        "type": "paragraph",
+        "text": "I connect the fixed gateway to IoT Core, which acts as the secure entry point between the physical demonstrator and the cloud. The gateway communicates over an encrypted TLS connection using [MQTT](https://en.wikipedia.org/wiki/MQTT), a lightweight messaging protocol commonly used by connected devices."
+      },
+      {
+        "type": "paragraph",
+        "text": "The gateway has its own digital certificate, which allows IoT Core to verify the device's identity. A narrowly scoped policy then controls what the device is allowed to send and receive."
+      },
+      {
+        "type": "paragraph",
+        "text": "After each measurement, the gateway publishes an inspection record with the sensor data and its position along the rail. An IoT rule then archives the record in Amazon S3, so I can review the history of the inspection run later."
+      },
+      {
+        "type": "mqttExample",
+        "topic": "sandur/sandur-thing/telemetry",
+        "payload": {
+          "missionId": 3,
+          "captureSequence": 7,
+          "position": 350,
+          "distance_mm": [
+            412,
+            409,
+            415
+          ],
+          "status": [
+            5,
+            5,
+            5
+          ]
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": "I also use a Device Shadow, a persistent cloud document that stores the latest known state of the demonstrator. It lets a remote application see information such as the carriage position and movement state, and request a limited configuration change even when the device is temporarily disconnected."
+      },
+      {
+        "type": "paragraph",
+        "text": "The inspection itself does not need a cloud connection. If the network goes down, the carriage can keep moving and measuring locally. The gateway tries to reconnect in the background and resumes cloud communication once the connection returns."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.5 Mechanics: rail, enclosures, and 3D printing"
+      },
+      {
+        "type": "paragraph",
+        "text": "The carriage moves along a V-slot aluminium rail. A stepper motor pulls it using a GT2 timing belt stretched between a motor pulley and an idler, converting the motor's rotation into straight, controlled movement."
+      },
+      {
+        "type": "paragraph",
+        "text": "I designed and 3D-printed custom parts to mount the rail inside a wooden box that I built from 15 mm plywood. These include the motor mount, end supports, sensor enclosure and controller enclosure."
+      },
+      {
+        "type": "image",
+        "src": "sandur-post/Screenshot 2026-09-06 at 14.40.10.png",
+        "alt": "Isometric mechanical drawing of the Sandur demonstrator, showing the wooden enclosure, V-slot rail, support brackets, moving sensor carriage, battery holder, ESP32 compartment, time-of-flight sensor compartment, and motor-driver gateway enclosure.",
+        "caption": "Figure 8. Mechanical layout of the Sandur demonstrator and its custom enclosures.",
+        "background": "light",
+        "width": 1630,
+        "height": 1268
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3.6 Final demonstration"
+      },
+      {
+        "type": "video",
+        "src": "sandur-post/plit-web.mp4",
+        "title": "Sandur demonstrator in operation",
+        "caption": "The completed Sandur demonstrator performing an inspection run.",
+        "width": 1280,
+        "height": 720
       }
     ]
   }

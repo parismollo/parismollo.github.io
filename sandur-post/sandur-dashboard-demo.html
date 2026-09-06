@@ -1,0 +1,518 @@
+<!-- Sandur controls-only blog component. Browser simulation, no hardware access. -->
+<aside id="controls-panel" class="dashboard-region controls-area" aria-labelledby="controls-heading">
+  <div class="region-heading">
+    <h2 id="controls-heading">Controls</h2>
+    <span class="region-stage">Interactive demo</span>
+  </div>
+
+  <div class="control-groups" aria-label="Simulated device controls">
+    <section class="control-group" aria-labelledby="connection-controls-heading">
+      <h3 id="connection-controls-heading">Connection</h3>
+      <p class="control-status" data-transport-status>Disconnected</p>
+      <div class="control-action-row">
+        <button type="button" data-connect-button>Connect</button>
+        <button type="button" data-disconnect-button disabled>Disconnect</button>
+      </div>
+      <button type="button" class="control-wide-button" data-refresh-status-button disabled>Refresh status</button>
+      <p class="transport-feedback" data-transport-feedback data-severity="info" aria-live="polite" aria-atomic="true">
+        Browser simulation only. No physical device will be accessed.
+      </p>
+      <div class="serial-activity" aria-label="Simulation activity">
+        <div class="serial-activity-heading">
+          <span>Demo activity</span>
+          <span data-serial-count>0 entries</span>
+        </div>
+        <ol class="serial-activity-log" data-serial-log aria-label="Recent simulated control events"></ol>
+      </div>
+    </section>
+
+    <section class="control-group" aria-labelledby="setup-controls-heading">
+      <h3 id="setup-controls-heading">Position setup</h3>
+      <label class="control-input-row">
+        <span>Jog size</span>
+        <input type="number" value="50" min="1" max="100" step="1" data-jog-size-input disabled aria-label="Jog size in steps">
+        <span class="control-unit">steps</span>
+      </label>
+      <button type="button" class="control-wide-button" data-set-jog-size-button disabled>Set jog size</button>
+      <label class="control-input-row">
+        <span>Maximum</span>
+        <input type="number" value="500" min="1" max="1000" step="1" data-maximum-input disabled aria-label="Maximum travel in steps">
+        <span class="control-unit">steps</span>
+      </label>
+      <button type="button" class="control-wide-button" data-set-maximum-button disabled>Set maximum</button>
+      <button type="button" class="control-wide-button" data-set-zero-button disabled>Set current position as zero</button>
+    </section>
+
+    <section class="control-group" aria-labelledby="movement-controls-heading">
+      <h3 id="movement-controls-heading">Manual movement</h3>
+      <div class="control-action-row">
+        <button type="button" data-jog-backward-button disabled>Jog backward</button>
+        <button type="button" data-jog-forward-button disabled>Jog forward</button>
+      </div>
+    </section>
+
+    <section class="control-group" aria-labelledby="cycle-controls-heading">
+      <h3 id="cycle-controls-heading">Inspection cycle</h3>
+      <div class="control-action-row">
+        <button type="button" data-start-cycle-button disabled>Start cycle</button>
+        <button type="button" class="abort-button" data-abort-button disabled>Abort</button>
+      </div>
+    </section>
+  </div>
+
+  <p class="controls-note">Simulation only. These controls do not send commands to a physical device.</p>
+</aside>
+
+<style>
+  #controls-panel,
+  #controls-panel * {
+    box-sizing: border-box;
+  }
+
+  #controls-panel {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 340px);
+    min-width: 0;
+    min-height: 570px;
+    margin: 24px auto;
+    padding: 20px;
+    border: 1px solid #d7dce2;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 3px 14px rgb(15 23 42 / 6%);
+    color: #1a1a1a;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+  }
+
+  #controls-panel .region-heading,
+  #controls-panel .serial-activity-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #controls-panel .region-heading h2 {
+    margin: 0;
+    color: #353535;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #controls-panel .region-stage {
+    color: #747474;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px;
+  }
+
+  #controls-panel .control-groups {
+    display: grid;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  #controls-panel .control-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  #controls-panel .control-group + .control-group {
+    padding-top: 16px;
+    border-top: 1px solid #eeeeee;
+  }
+
+  #controls-panel .control-group h3 {
+    margin: 0;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #controls-panel .control-status {
+    margin: 0;
+    color: #7b8189;
+    font-size: 12px;
+  }
+
+  #controls-panel .control-action-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #controls-panel .control-action-row button,
+  #controls-panel .control-wide-button {
+    min-height: 34px;
+    padding: 7px 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #4b5563;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  #controls-panel .control-wide-button {
+    width: 100%;
+  }
+
+  #controls-panel button:not(:disabled) {
+    border-color: #8ab4f8;
+    background: #f8fbff;
+    color: #174ea6;
+    cursor: pointer;
+  }
+
+  #controls-panel button:not(:disabled):hover {
+    border-color: #4f83d1;
+    background: #edf4ff;
+  }
+
+  #controls-panel button:disabled,
+  #controls-panel input:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+  }
+
+  #controls-panel .abort-button:not(:disabled) {
+    border-color: #e0aaaa;
+    background: #fff8f8;
+    color: #9f3434;
+  }
+
+  #controls-panel .control-input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 64px auto;
+    align-items: center;
+    gap: 6px;
+    color: #6b7280;
+    font-size: 12px;
+  }
+
+  #controls-panel .control-input-row input {
+    width: 64px;
+    min-height: 32px;
+    padding: 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #4b5563;
+    font: inherit;
+    font-size: 12px;
+  }
+
+  #controls-panel .control-input-row input:disabled {
+    background: #f1f3f4;
+    color: #8a8a8a;
+  }
+
+  #controls-panel .control-unit {
+    color: #8a8a8a;
+    font-size: 11px;
+  }
+
+  #controls-panel .transport-feedback {
+    min-height: 30px;
+    margin: 0;
+    padding: 7px 8px;
+    border-left: 3px solid #8a8a8a;
+    border-radius: 3px;
+    background: #f7f7f7;
+    color: #5f6368;
+    font-size: 11px;
+  }
+
+  #controls-panel .transport-feedback[data-severity="success"] {
+    border-left-color: #188038;
+    background: #f2faf4;
+    color: #137333;
+  }
+
+  #controls-panel .transport-feedback[data-severity="warning"] {
+    border-left-color: #d97706;
+    background: #fff8e8;
+    color: #8a5b0a;
+  }
+
+  #controls-panel .transport-feedback[data-severity="error"] {
+    border-left-color: #c5221f;
+    background: #fff4f4;
+    color: #a61b1b;
+  }
+
+  #controls-panel .serial-activity {
+    display: grid;
+    gap: 5px;
+  }
+
+  #controls-panel .serial-activity-heading {
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  #controls-panel .serial-activity-heading span:last-child {
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  #controls-panel .serial-activity-log {
+    overflow-y: auto;
+    max-height: 112px;
+    min-height: 46px;
+    margin: 0;
+    padding: 7px 7px 7px 24px;
+    border: 1px solid #e2e4e7;
+    border-radius: 5px;
+    background: #f8f9fa;
+    color: #4b5563;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  #controls-panel .serial-activity-log:empty::before {
+    color: #8a8a8a;
+    content: "No activity yet";
+  }
+
+  #controls-panel .serial-activity-log li + li {
+    margin-top: 3px;
+  }
+
+  #controls-panel .controls-note {
+    margin: auto 0 0;
+    color: #8a8a8a;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  #controls-panel button:focus-visible,
+  #controls-panel input:focus-visible {
+    outline: 3px solid rgb(37 99 235 / 24%);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 420px) {
+    #controls-panel {
+      padding: 16px;
+    }
+
+    #controls-panel .region-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const panel = document.querySelector("#controls-panel");
+    if (!panel) return;
+
+    const find = (selector) => panel.querySelector(selector);
+    const elements = {
+      status: find("[data-transport-status]"),
+      feedback: find("[data-transport-feedback]"),
+      count: find("[data-serial-count]"),
+      log: find("[data-serial-log]"),
+      connect: find("[data-connect-button]"),
+      disconnect: find("[data-disconnect-button]"),
+      refresh: find("[data-refresh-status-button]"),
+      jogSizeInput: find("[data-jog-size-input]"),
+      maximumInput: find("[data-maximum-input]"),
+      setJogSize: find("[data-set-jog-size-button]"),
+      setMaximum: find("[data-set-maximum-button]"),
+      setZero: find("[data-set-zero-button]"),
+      jogBackward: find("[data-jog-backward-button]"),
+      jogForward: find("[data-jog-forward-button]"),
+      startCycle: find("[data-start-cycle-button]"),
+      abort: find("[data-abort-button]"),
+    };
+
+    const state = {
+      connected: false,
+      busy: false,
+      zeroDefined: false,
+      maximum: null,
+      position: 0,
+      jogSize: 50,
+      mission: 0,
+      entries: 0,
+      timer: null,
+      cycleStep: 0,
+    };
+
+    function setFeedback(message, severity = "info") {
+      elements.feedback.textContent = message;
+      elements.feedback.dataset.severity = severity;
+    }
+
+    function addActivity(message) {
+      state.entries += 1;
+      const item = document.createElement("li");
+      item.textContent = message;
+      elements.log.append(item);
+      while (elements.log.children.length > 8) {
+        elements.log.firstElementChild.remove();
+      }
+      elements.count.textContent = `${state.entries} ${state.entries === 1 ? "entry" : "entries"}`;
+      elements.log.scrollTop = elements.log.scrollHeight;
+    }
+
+    function render() {
+      const idle = state.connected && !state.busy;
+      elements.connect.disabled = state.connected;
+      elements.disconnect.disabled = !state.connected;
+      elements.refresh.disabled = !state.connected;
+      elements.jogSizeInput.disabled = !idle;
+      elements.maximumInput.disabled = !idle;
+      elements.setJogSize.disabled = !idle;
+      elements.setMaximum.disabled = !idle;
+      elements.setZero.disabled = !idle;
+      elements.jogBackward.disabled = !idle;
+      elements.jogForward.disabled = !idle;
+      elements.startCycle.disabled = !(idle && state.zeroDefined && state.maximum !== null);
+      elements.abort.disabled = !(state.connected && state.busy);
+      elements.status.textContent = state.connected
+        ? state.busy
+          ? "Running simulated command"
+          : `Connected to simulation at ${state.position} steps`
+        : "Disconnected";
+    }
+
+    function readInteger(input, minimum, maximum, label) {
+      const value = Number(input.value);
+      if (!Number.isInteger(value) || value < minimum || value > maximum) {
+        setFeedback(`${label} must be a whole number from ${minimum} to ${maximum}.`, "error");
+        return null;
+      }
+      return value;
+    }
+
+    function finishMovement(message) {
+      state.busy = false;
+      setFeedback(message, "success");
+      render();
+    }
+
+    function simulateJog(direction) {
+      if (!state.connected || state.busy) return;
+      state.busy = true;
+      const lowerBound = state.zeroDefined ? 0 : -1000;
+      const upperBound = state.maximum ?? 1000;
+      state.position = Math.max(lowerBound, Math.min(upperBound, state.position + direction * state.jogSize));
+      addActivity(`${direction > 0 ? "Jog forward" : "Jog backward"} requested`);
+      setFeedback("Simulating movement...", "warning");
+      render();
+      state.timer = window.setTimeout(() => {
+        addActivity(`Movement complete at ${state.position} steps`);
+        finishMovement(`Movement complete at ${state.position} steps.`);
+      }, 550);
+    }
+
+    elements.connect.addEventListener("click", () => {
+      state.connected = true;
+      addActivity("Browser simulation connected");
+      setFeedback("Connected to the browser simulation. Define zero and set a maximum to enable an inspection cycle.", "success");
+      render();
+    });
+
+    elements.disconnect.addEventListener("click", () => {
+      window.clearInterval(state.timer);
+      window.clearTimeout(state.timer);
+      state.connected = false;
+      state.busy = false;
+      state.zeroDefined = false;
+      state.maximum = null;
+      state.position = 0;
+      addActivity("Browser simulation disconnected");
+      setFeedback("Disconnected. No physical device was accessed.", "info");
+      render();
+    });
+
+    elements.refresh.addEventListener("click", () => {
+      addActivity(`Status: position=${state.position}, jog=${state.jogSize}, max=${state.maximum ?? "unset"}`);
+      setFeedback("Simulated status refreshed.", "success");
+    });
+
+    elements.setJogSize.addEventListener("click", () => {
+      const value = readInteger(elements.jogSizeInput, 1, 100, "Jog size");
+      if (value === null) return;
+      state.jogSize = value;
+      addActivity(`Jog size set to ${value} steps`);
+      setFeedback(`Jog size set to ${value} steps.`, "success");
+    });
+
+    elements.setZero.addEventListener("click", () => {
+      state.position = 0;
+      state.zeroDefined = true;
+      state.maximum = null;
+      addActivity("Zero reference defined");
+      setFeedback("Current position is now zero. Set the maximum next.", "success");
+      render();
+    });
+
+    elements.setMaximum.addEventListener("click", () => {
+      const value = readInteger(elements.maximumInput, 1, 1000, "Maximum");
+      if (value === null) return;
+      if (value < state.position) {
+        setFeedback("Maximum cannot be below the current position.", "error");
+        return;
+      }
+      state.maximum = value;
+      addActivity(`Maximum set to ${value} steps`);
+      setFeedback(`Maximum set to ${value} steps.`, "success");
+      render();
+    });
+
+    elements.jogBackward.addEventListener("click", () => simulateJog(-1));
+    elements.jogForward.addEventListener("click", () => simulateJog(1));
+
+    elements.startCycle.addEventListener("click", () => {
+      if (!state.connected || state.busy || !state.zeroDefined || state.maximum === null) return;
+      state.busy = true;
+      state.mission += 1;
+      state.position = 0;
+      state.cycleStep = 0;
+      addActivity(`Inspection ${state.mission} started`);
+      setFeedback("Simulating inspection cycle...", "warning");
+      render();
+
+      state.timer = window.setInterval(() => {
+        state.cycleStep += 1;
+        state.position = Math.min(state.maximum, state.position + state.jogSize);
+        addActivity(`Capture ${state.cycleStep} at ${state.position} steps`);
+        render();
+
+        if (state.position >= state.maximum) {
+          window.clearInterval(state.timer);
+          state.position = 0;
+          addActivity(`Inspection ${state.mission} complete, returned to zero`);
+          finishMovement("Inspection complete. The simulated carriage returned to zero.");
+        }
+      }, 700);
+    });
+
+    elements.abort.addEventListener("click", () => {
+      if (!state.busy) return;
+      window.clearInterval(state.timer);
+      window.clearTimeout(state.timer);
+      state.busy = false;
+      addActivity(`Command aborted at ${state.position} steps`);
+      setFeedback("Simulation aborted at the current position.", "warning");
+      render();
+    });
+
+    render();
+  })();
+</script>
