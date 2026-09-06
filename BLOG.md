@@ -55,7 +55,7 @@ Add an object to the array in `posts.json`:
 }
 ```
 
-Paragraphs support external Markdown-style links. Links open in a new browser tab.
+Paragraphs support external Markdown-style links. Links open in a new browser tab. Omit `variant` for a standard paragraph or use `"intro"` for an introductory callout. To mark only part of a paragraph, add a `highlight` field containing the exact text that should receive the standard yellow highlight treatment. Set `numberedNotes` to `true` to render inline numeric markers such as `(1)` in the handwritten annotation style.
 
 ### Heading
 

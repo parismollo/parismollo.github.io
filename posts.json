@@ -41,7 +41,9 @@
       },
       {
         "type": "paragraph",
-        "text": "To explore this problem, I spent part of this summer building a small connected demonstrator as a personal project. It is not an underwater vehicle and does not attempt to reproduce real marine conditions. Instead, it models the core inspection loop: move a sensor along a route, collect measurements at known positions, and send the resulting data to a remote system. The demonstrator combines sensing, motion, embedded software, mechanical design, and cloud connectivity."
+        "highlight": "It is not an underwater vehicle and does not attempt to reproduce real marine conditions.",
+        "numberedNotes": true,
+        "text": "To explore this problem, I spent part of this summer building a small connected demonstrator as a personal project. It is not an underwater vehicle and does not attempt to reproduce real marine conditions. Instead, it models the core inspection loop: (1) move a sensor along a route, (2) collect measurements at known positions, (3) and send the resulting data to a remote system. The demonstrator combines sensing, motion, embedded software, mechanical design, and cloud connectivity."
       },
       {
         "type": "paragraph",

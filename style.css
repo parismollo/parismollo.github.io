@@ -618,3 +618,31 @@ a:hover {
     border-left: 3px solid var(--text-secondary);
     border-radius: 10px;
 }
+
+/* Reusable text highlight */
+.text-highlight {
+    padding: 0.04em 0.12em 0.07em;
+    color: #111111;
+    background: #ffff00;
+    border-radius: 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* Reusable handwritten inline number */
+.handwritten-number {
+    display: inline-block;
+    margin: 0 0.08em;
+    color: #ffff00;
+    font-family: "Marker Felt", "Bradley Hand", "Segoe Print", cursive;
+    font-size: 1.12em;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    transform: rotate(-4deg);
+    transform-origin: center;
+}
+
+.handwritten-number:nth-of-type(even) {
+    transform: rotate(3deg);
+}

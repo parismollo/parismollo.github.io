@@ -80,8 +80,24 @@ function renderPostContent(post) {
         }
 
         if (block.type === 'paragraph') {
-            const paragraphClass = block.variant === 'intro' ? ' class="post-intro"' : '';
-            return `<p${paragraphClass}>${renderInlineText(block.text)}</p>`;
+            let content = renderInlineText(block.text);
+
+            if (block.highlight && block.text.includes(block.highlight)) {
+                const highlightStart = block.text.indexOf(block.highlight);
+                const before = block.text.slice(0, highlightStart);
+                const after = block.text.slice(highlightStart + block.highlight.length);
+                content = `${renderInlineText(before)}<mark class="text-highlight">${renderInlineText(block.highlight)}</mark>${renderInlineText(after)}`;
+            }
+
+            if (block.numberedNotes) {
+                content = content.replace(/\((\d+)\)/g, '<span class="handwritten-number">($1)</span>');
+            }
+
+            if (block.variant === 'intro') {
+                return `<p class="post-intro">${content}</p>`;
+            }
+
+            return `<p>${content}</p>`;
         }
 
         if (block.type === 'image' && isSafeUrl(block.src)) {
