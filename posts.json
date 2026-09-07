@@ -143,6 +143,7 @@
       },
       {
         "type": "paragraph",
+        "highlight": "but that would introduce drag, snagging, and cable-management problems",
         "text": "I split the work this way for a practical reason. I could run a data cable to the moving carriage, but that would introduce drag, snagging, and cable-management problems. A wireless link keeps the moving assembly simpler, while the fixed node handles the motor wiring, Wi-Fi connection, and secure cloud connection."
       },
       {
@@ -153,8 +154,8 @@
         "type": "list",
         "ordered": true,
         "items": [
-          "The carriage begins at its defined starting point.",
-          "It moves a fixed distance along the rail.",
+          "The carriage returns to its manually defined zero position if necessary.",
+          "It moves towards the endpoint in configured intervals, shortening the final interval when needed.",
           "It stops and measures the surface below.",
           "The measurement is associated with its position along the route.",
           "The resulting inspection record is sent to a remote system.",
@@ -163,7 +164,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A full run therefore produces a sequence of small depth maps, each associated with a position along the rail."
+        "text": "A full run therefore produces a sequence of 8 × 8 distance frames, each associated with a position along the rail."
       },
       {
         "type": "heading",
@@ -176,21 +177,11 @@
       },
       {
         "type": "paragraph",
-        "text": "The electronics are organised around two ESP32 development boards. An ESP32 is a small microcontroller with enough processing power for sensors and motor control, plus built-in Wi-Fi and short-range wireless communication."
+        "text": "The electronics are organised around two ESP32 development boards. [An ESP32 is a small microcontroller](https://en.wikipedia.org/wiki/ESP32) with enough processing power for sensors and motor control, plus built-in Wi-Fi and short-range wireless communication."
       },
       {
         "type": "paragraph",
         "text": "Using two controllers gave each one a clear responsibility."
-      },
-      {
-        "type": "image",
-        "src": "sandur-post/blog_image_4.png",
-        "alt": "Pinout diagram of an ESP-WROOM-32 development board showing its GPIO, power, communication, touch, ADC, and DAC pins.",
-        "caption": "Figure 4. ESP32 development-board pinout and available interfaces.",
-        "source": "Impl Rust",
-        "sourceUrl": "https://esp32.implrust.com/esp32-intro/pinout.html",
-        "width": 1366,
-        "height": 780
       },
       {
         "type": "heading",
@@ -210,15 +201,31 @@
         ]
       },
       {
-        "type": "image",
-        "src": "sandur-post/image.png",
-        "alt": "VL53L5CX time-of-flight distance-sensor carrier board with its optical sensor, regulator, passive components, and connection pads visible.",
-        "caption": "Figure 5. The VL53L5CX 8 × 8-zone time-of-flight distance-sensor carrier used by the moving node.",
-        "source": "RobotShop",
-        "sourceUrl": "https://eu.robotshop.com/fr/products/vl53l5cx-capteur-distance-tof-8x8-zones-porteur-400-cm-regulateur-tension",
-        "background": "light",
-        "width": 1330,
-        "height": 1182
+        "type": "imageGroup",
+        "variant": "compact-hardware",
+        "items": [
+          {
+            "type": "image",
+            "src": "sandur-post/blog_image_4.png",
+            "alt": "Pinout diagram of an ESP-WROOM-32 development board showing its GPIO, power, communication, touch, ADC, and DAC pins.",
+            "caption": "Figure 4. ESP32 development-board pinout and available interfaces.",
+            "source": "Impl Rust",
+            "sourceUrl": "https://esp32.implrust.com/esp32-intro/pinout.html",
+            "width": 1366,
+            "height": 780
+          },
+          {
+            "type": "image",
+            "src": "sandur-post/image.png",
+            "alt": "VL53L5CX time-of-flight distance-sensor carrier board with its optical sensor, regulator, passive components, and connection pads visible.",
+            "caption": "Figure 5. The VL53L5CX 8 × 8-zone time-of-flight distance-sensor carrier used by the moving node.",
+            "source": "RobotShop",
+            "sourceUrl": "https://eu.robotshop.com/fr/products/vl53l5cx-capteur-distance-tof-8x8-zones-porteur-400-cm-regulateur-tension",
+            "background": "light",
+            "width": 1330,
+            "height": 1182
+          }
+        ]
       },
       {
         "type": "paragraph",
@@ -231,6 +238,7 @@
       },
       {
         "type": "paragraph",
+        "highlight": "The firmware uses this status to distinguish valid distances from weak or unusable measurements.",
         "text": "Each zone also has a status value. The firmware uses this status to distinguish valid distances from weak or unusable measurements. Treating every number as trustworthy would create false structure in the resulting surface map."
       },
       {
@@ -280,10 +288,11 @@
       {
         "type": "paragraph",
         "highlight": "The ESP32 tells the driver which direction to move and sends one pulse for each motor step.",
-        "text": "A microcontroller cannot power a stepper motor directly. Its pins produce logic signals, not the voltage and current required by motor coils. The DRV8825 sits between the controller and the motor. The ESP32 tells the driver which direction to move and sends one pulse for each motor step. The driver switches the higher-current motor supply accordingly."
+        "text": "A microcontroller cannot power a stepper motor directly. Its pins produce logic signals, not the voltage and current required by motor coils. That's why we have the DRV8825 between the controller and the motor. The ESP32 tells the driver which direction to move and sends one pulse for each motor step."
       },
       {
         "type": "paragraph",
+        "highlight": "This provides a simple position model without adding a separate position encoder.",
         "text": "A stepper motor is useful here because motion is divided into discrete steps. If the controller has sent 200 forward steps and no steps were missed, it can treat the carriage as being 200 steps from its starting point. This provides a simple position model without adding a separate position encoder."
       },
       {
@@ -375,7 +384,7 @@
           },
           {
             "type": "paragraph",
-            "text": "A USB serial interface lets an operator jog the carriage, set zero, maximum travel, and capture spacing, start or abort an inspection, and request the current state. The gateway returns both structured JSON events and readable diagnostics."
+            "text": "A USB connection lets me control the carriage locally. From the browser panel, I can move it, set its limits, start or stop an inspection, and check its current state."
           }
         ]
       },
@@ -386,7 +395,7 @@
       },
       {
         "type": "paragraph",
-        "text": "I connect the fixed gateway to IoT Core, which acts as the secure entry point between the physical demonstrator and the cloud. The gateway communicates over an encrypted TLS connection using [MQTT](https://en.wikipedia.org/wiki/MQTT), a lightweight messaging protocol commonly used by connected devices."
+        "text": "I connect the fixed gateway to IoT Core, which acts as the secure entry point between the physical demonstrator and the cloud. The gateway communicates using [MQTT](https://en.wikipedia.org/wiki/MQTT), a lightweight messaging protocol commonly used by connected devices, over an encrypted mutual TLS (mTLS) connection."
       },
       {
         "type": "paragraph",
@@ -421,6 +430,7 @@
       },
       {
         "type": "paragraph",
+        "highlight": "If the network goes down, the carriage can keep moving and measuring locally",
         "text": "The inspection itself does not need a cloud connection. If the network goes down, the carriage can keep moving and measuring locally. The gateway tries to reconnect in the background and resumes cloud communication once the connection returns."
       },
       {
@@ -446,9 +456,46 @@
         "height": 1268
       },
       {
+        "type": "paragraph",
+        "text": "Once I had tested the circuit, firmware, and basic mechanics of each component, I started putting the full setup together. Here are a couple of photos from that stage: mounting the sensor head on the rail and wiring the stepper motor driver."
+      },
+      {
+        "type": "imageGroup",
+        "variant": "compact-hardware",
+        "items": [
+          {
+            "type": "image",
+            "src": "sandur-post/sensor-carriage-rail-assembly.jpeg",
+            "alt": "Workbench view of the Sandur aluminium rail with the 3D-printed sensor carriage, time-of-flight sensor enclosure, belt, and end supports mounted during assembly.",
+            "caption": "Figure 9. Mounting the sensor carriage and enclosure on the rail.",
+            "width": 2048,
+            "height": 1152
+          },
+          {
+            "type": "image",
+            "src": "sandur-post/stepper-driver-wiring.jpeg",
+            "alt": "Close-up of the DRV8825 stepper motor driver module connected to coloured control, power, and motor wires during bench assembly.",
+            "caption": "Figure 10. Wiring the DRV8825 stepper motor driver during assembly.",
+            "width": 2048,
+            "height": 1535
+          }
+        ]
+      },
+      {
         "type": "heading",
-        "level": 3,
-        "text": "3.6 Final demonstration"
+        "text": "4. Demo"
+      },
+      {
+        "type": "paragraph",
+        "text": "Once I had the rail assembly working, I went to a wood shop here in Paris and ordered some plywood panels. I put the wooden box together in probably the worst possible way, but it was good enough to test the idea."
+      },
+      {
+        "type": "paragraph",
+        "text": "I screwed the rail supports into the box and then installed the rest of the components."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then I built a small UI to visualise the data in the browser, which made it easier to demonstrate the idea of scanning the seabed surface. I also added a pipe to represent the cable and a threshold showing the minimum sand cover. If the measured surface drops below that threshold, the cable would be considered exposed."
       },
       {
         "type": "video",
@@ -457,6 +504,45 @@
         "caption": "The completed Sandur demonstrator performing an inspection run.",
         "width": 1280,
         "height": 720
+      },
+      {
+        "type": "heading",
+        "text": "5. Final considerations"
+      },
+      {
+        "type": "paragraph",
+        "text": "Since I built this in my spare time and it was never really a priority, the project still has a good bunch of issues. Let me list a few of them, haha:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "The support brackets on both sides of the aluminium rail are not ideal for quickly mounting and removing it, especially with a fixed-length box.",
+          "The ToF sensor has a limited field of view, roughly 63° diagonally.",
+          "The system is noisy.",
+          "The wiring and cable management are terrible in this version. It works, but it is definitely not pretty.",
+          "The VL53L5CX is not designed for underwater inspection, and its optical measurements would be strongly affected by water clarity, scattering, range, and packaging. A real buried-cable inspection system would likely require an acoustic instrument such as a sub-bottom profiler, or another purpose-built sensing technology.",
+          "The current visualisation combines the measurements into a simplified surface model. It is useful for explaining the concept, but it is not yet a calibrated or precise reconstruction."
+        ]
+      },
+      {
+        "type": "closingNote",
+        "text": "I hope you liked the article. It was my first one, so I'm still figuring out which parts of the process are interesting to share and which are not. If you have any feedback, feel free to reach out by email or find me on LinkedIn and GitHub.",
+        "thanks": "Thank you!",
+        "contacts": [
+          {
+            "label": "Email",
+            "value": "parismolloch@gmail.com"
+          },
+          {
+            "label": "LinkedIn",
+            "value": "Paris Mollo"
+          },
+          {
+            "label": "GitHub",
+            "value": "parismollo",
+            "href": "https://github.com/parismollo"
+          }
+        ]
       }
     ]
   }

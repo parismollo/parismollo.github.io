@@ -94,7 +94,7 @@ function renderPostBlock(block) {
                         sandbox="allow-scripts"
                         referrerpolicy="no-referrer"
                     ></iframe>
-                    <p class="post-demo-caption">Interactive device control panel from the Sandur demo.</p>
+                    <p class="post-demo-caption">The local control UI I used during development to manually control the carriage.</p>
                 </div>
             </section>
         `;
@@ -109,6 +109,53 @@ function renderPostBlock(block) {
             <aside class="post-disclaimer" role="note" aria-label="${escapeHtml(title)}">
                 <strong class="post-disclaimer-title">${renderPlainText(title)}</strong>
                 <p>${renderInlineText(block.text)}</p>
+            </aside>
+        `;
+    }
+
+    if (block.type === 'closingNote' && typeof block.text === 'string') {
+        const contacts = Array.isArray(block.contacts)
+            ? block.contacts.map((contact) => {
+                if (
+                    typeof contact.label !== 'string' ||
+                    typeof contact.value !== 'string'
+                ) return '';
+
+                const content = `
+                    <span>${renderPlainText(contact.label)}</span>
+                    <strong>${renderPlainText(contact.value)}</strong>
+                `;
+
+                if (typeof contact.href !== 'string') {
+                    return `<li><span class="post-closing-link post-closing-link--static">${content}</span></li>`;
+                }
+
+                try {
+                    const url = new URL(contact.href, document.baseURI);
+                    if (url.protocol !== 'https:' && url.protocol !== 'mailto:') return '';
+                    const externalAttributes = url.protocol === 'https:'
+                        ? ' target="_blank" rel="noopener noreferrer"'
+                        : '';
+
+                    return `
+                        <li>
+                            <a class="post-closing-link" href="${escapeHtml(contact.href)}"${externalAttributes}>
+                                ${content}
+                            </a>
+                        </li>
+                    `;
+                } catch {
+                    return '';
+                }
+            }).join('')
+            : '';
+        const thanks = typeof block.thanks === 'string' ? block.thanks : 'Thank you!';
+
+        return `
+            <aside class="post-closing-note" aria-label="Closing note">
+                <p class="post-closing-text">${renderInlineText(block.text)}</p>
+                <ul class="post-closing-contacts" aria-label="Contact links">${contacts}</ul>
+                <p class="post-closing-thanks">${renderPlainText(thanks)}</p>
             </aside>
         `;
     }
