@@ -21,6 +21,12 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
     line-height: 1.6;
@@ -546,6 +552,72 @@ a:hover {
     font-size: 0.85rem;
 }
 
+/* Article table of contents */
+.post-toc {
+    margin: 0 0 42px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.post-toc-title {
+    margin: 0 0 12px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 650;
+}
+
+.post-toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.post-toc-sections {
+    display: grid;
+    gap: 8px;
+}
+
+.post-toc a {
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-decoration: none;
+    text-underline-offset: 3px;
+}
+
+.post-toc-sections > li > a {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.post-toc a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--text-tertiary);
+}
+
+.post-toc ol.post-toc-subsections {
+    display: grid;
+    gap: 5px;
+    margin-top: 7px;
+    padding-left: 14px;
+    border-left: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+    .post-toc {
+        margin-bottom: 34px;
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .post-toc ol.post-toc-subsections {
+        padding-left: 12px;
+    }
+}
+
 .post-body a {
     color: var(--text-primary);
     text-decoration: underline;
@@ -585,6 +657,7 @@ a:hover {
 
 .back-link:focus-visible,
 .blog-card:focus-visible,
+.post-toc a:focus-visible,
 .post-body a:focus-visible {
     outline: 2px solid var(--text-primary);
     outline-offset: 4px;
@@ -818,6 +891,17 @@ a:hover {
     font-size: 1.05rem;
     font-weight: 650;
     letter-spacing: -0.01em;
+}
+
+.post-body h2[id],
+.post-body h3[id] {
+    scroll-margin-top: 24px;
+}
+
+.post-body h2[id]:focus,
+.post-body h3[id]:focus {
+    outline: 2px solid var(--border);
+    outline-offset: 6px;
 }
 
 .post-body h4 {

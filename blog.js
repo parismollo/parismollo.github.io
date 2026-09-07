@@ -55,31 +55,146 @@ async function renderPost() {
         }
 
         document.title = `${post.title} | Paris Mollo`;
+        const headingContext = buildHeadingContext(post);
         container.innerHTML = `
             <header class="post-header">
                 <time class="post-date" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
                 <h1 class="post-title">${renderPlainText(post.title)}</h1>
                 ${post.author ? `<p class="post-author">By ${escapeHtml(post.author)}</p>` : ''}
             </header>
-            <div class="post-body">${renderPostContent(post)}</div>
+            ${renderTableOfContents(headingContext.entries)}
+            <div class="post-body">${renderPostContent(post, headingContext)}</div>
         `;
+        initializePostNavigation(container);
     } catch (error) {
         console.error(error);
         container.innerHTML = '<p>Post could not be loaded. <a href="blog.html">Return to the blog</a>.</p>';
     }
 }
 
-function renderPostContent(post) {
+function buildHeadingContext(post) {
+    const headingIds = new WeakMap();
+    const entries = [];
+    const slugCounts = new Map();
+
+    function visit(blocks) {
+        if (!Array.isArray(blocks)) return;
+
+        blocks.forEach((block) => {
+            if (block.type === 'heading') {
+                const level = [2, 3, 4].includes(block.level) ? block.level : 2;
+                if (level === 2 || level === 3) {
+                    const baseSlug = createHeadingSlug(block.text);
+                    const count = (slugCounts.get(baseSlug) || 0) + 1;
+                    slugCounts.set(baseSlug, count);
+                    const id = count === 1 ? baseSlug : `${baseSlug}-${count}`;
+                    headingIds.set(block, id);
+                    entries.push({ id, level, text: block.text || '' });
+                }
+            }
+
+            if (Array.isArray(block.content)) visit(block.content);
+        });
+    }
+
+    visit(post.content);
+    return { headingIds, entries };
+}
+
+function createHeadingSlug(value = '') {
+    const slug = String(value)
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+    return slug || 'section';
+}
+
+function renderTableOfContents(entries) {
+    if (!Array.isArray(entries) || entries.length === 0) return '';
+
+    const groups = [];
+    entries.forEach((entry) => {
+        if (entry.level === 2 || groups.length === 0) {
+            groups.push({ entry, children: [] });
+            return;
+        }
+
+        groups[groups.length - 1].children.push(entry);
+    });
+
+    const items = groups.map(({ entry, children }) => {
+        const childList = children.length > 0
+            ? `<ol class="post-toc-subsections">
+                ${children.map(child => `<li><a href="#${escapeHtml(child.id)}">${renderPlainText(child.text)}</a></li>`).join('')}
+            </ol>`
+            : '';
+
+        return `<li>
+            <a href="#${escapeHtml(entry.id)}">${renderPlainText(entry.text)}</a>
+            ${childList}
+        </li>`;
+    }).join('');
+
+    return `
+        <nav class="post-toc" aria-labelledby="post-toc-title">
+            <p class="post-toc-title" id="post-toc-title">In this article</p>
+            <ol class="post-toc-sections">${items}</ol>
+        </nav>
+    `;
+}
+
+function initializePostNavigation(container) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function findHashTarget() {
+        if (!window.location.hash) return null;
+
+        try {
+            return document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        } catch {
+            return null;
+        }
+    }
+
+    function moveToTarget(target, smooth) {
+        if (!target) return;
+        target.scrollIntoView({
+            behavior: smooth && !prefersReducedMotion.matches ? 'smooth' : 'auto',
+            block: 'start'
+        });
+        target.focus({ preventScroll: true });
+    }
+
+    container.querySelector('.post-toc')?.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+
+        const target = document.getElementById(link.hash.slice(1));
+        if (!target) return;
+
+        event.preventDefault();
+        window.history.pushState(null, '', link.hash);
+        moveToTarget(target, true);
+    });
+
+    window.addEventListener('hashchange', () => moveToTarget(findHashTarget(), false));
+    window.requestAnimationFrame(() => moveToTarget(findHashTarget(), false));
+}
+
+function renderPostContent(post, context) {
     if (!Array.isArray(post.content)) {
         return markdownToHtml(post.body || '');
     }
 
-    return post.content.map(renderPostBlock).join('');
+    return post.content.map(block => renderPostBlock(block, context)).join('');
 }
 
-function renderPostBlock(block) {
+function renderPostBlock(block, context) {
     if (block.type === 'interactiveDemo' && Array.isArray(block.content)) {
-        const copy = block.content.map(renderPostBlock).join('');
+        const copy = block.content.map(child => renderPostBlock(child, context)).join('');
         if (!isSafeDemoPath(block.src)) return copy;
 
         return `
@@ -162,7 +277,11 @@ function renderPostBlock(block) {
 
     if (block.type === 'heading') {
         const level = [2, 3, 4].includes(block.level) ? block.level : 2;
-        return `<h${level}>${renderPlainText(block.text)}</h${level}>`;
+        const id = context?.headingIds?.get(block);
+        const anchorAttributes = id
+            ? ` id="${escapeHtml(id)}" tabindex="-1"`
+            : '';
+        return `<h${level}${anchorAttributes}>${renderPlainText(block.text)}</h${level}>`;
     }
 
     if (block.type === 'paragraph') {
@@ -224,7 +343,7 @@ function renderPostBlock(block) {
         const modifier = block.variant === 'compact-hardware'
             ? ' post-figure-group--compact-hardware'
             : '';
-        return `<div class="post-figure-group${modifier}">${block.items.map(renderPostBlock).join('')}</div>`;
+        return `<div class="post-figure-group${modifier}">${block.items.map(item => renderPostBlock(item, context)).join('')}</div>`;
     }
 
     if (

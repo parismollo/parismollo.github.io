@@ -520,7 +520,7 @@
           "The ToF sensor has a limited field of view, roughly 63° diagonally.",
           "The system is noisy.",
           "The wiring and cable management are terrible in this version. It works, but it is definitely not pretty.",
-          "The VL53L5CX is not designed for underwater inspection, and its optical measurements would be strongly affected by water clarity, scattering, range, and packaging. A real buried-cable inspection system would likely require an acoustic instrument such as a sub-bottom profiler, or another purpose-built sensing technology.",
+          "The VL53L5CX is not made for underwater inspection, where water clarity and scattering would affect its readings. A real system would probably need an acoustic sensor, such as a sub-bottom profiler, or another sensor designed for underwater use.",
           "The current visualisation combines the measurements into a simplified surface model. It is useful for explaining the concept, but it is not yet a calibrated or precise reconstruction."
         ]
       },
